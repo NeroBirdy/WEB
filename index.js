@@ -10,8 +10,25 @@ function ClTable()
             ClearTable.rows[i].cells[j].style.backgroundColor = "white";
         }
     }
+
     fl1 = false;
     fl2 = false;
+    document.querySelector(".start").classList.remove("start");
+    document.querySelector(".end").classList.remove("end");
+}
+
+function Clear_path()
+{
+    let n = document.getElementById("input").value;
+    let Table = document.querySelector("table");
+    for (let i = 0; i < n; i++)
+    {
+        for (let j = 0; j < n; j++)
+        {
+            if (Table.rows[i].cells[j].style.backgroundColor == "green")
+                Table.rows[i].cells[j].style.backgroundColor = "white";
+        }
+    }
 }
 
 
@@ -134,6 +151,8 @@ function createTable() {
 
   function matrix()
   {
+    if (!fl1 | !fl2)
+        return;
     let n = document.getElementById("input").value;
     let container = document.getElementById("table-container");
     let table = container.querySelector("table");
@@ -258,7 +277,6 @@ function createTable() {
           path.unshift(currentNode);
           currentNode = prev[currentNode];
         }
-      console.log(path.length);
       if (path.length == 1)
       alert("Маршрута нету");
       else
