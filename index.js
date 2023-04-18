@@ -80,11 +80,7 @@ function createTable() {
     container.appendChild(table);
   }
 
-//Операции
-//
-//
-//
-//
+
   let operation = 0;
   let fl1 = false;
   let fl2 = false;
@@ -117,11 +113,7 @@ function createTable() {
 
 
 
-//Переменные
-//
-//
-//
-//
+
   let start;
   let finish;
   let mtrx = [];
@@ -130,11 +122,7 @@ function createTable() {
 
 
 
-//Создание матриц(смежности и со стеночками)
-//
-//
-//
-//
+
   function matrix()
   {
     let n = document.getElementById("input").value;
@@ -147,9 +135,9 @@ function createTable() {
         for(let j = 0; j < n; j++)
         {
             if (table.rows[i].cells[j].style.backgroundColor === "blue")
-                blue = count;
+                start = count;
             if (table.rows[i].cells[j].style.backgroundColor === "red")
-                red = count;
+                finish = count;
             if (table.rows[i].cells[j].style.backgroundColor !== "black")
             {
                 a[j] = 0;
