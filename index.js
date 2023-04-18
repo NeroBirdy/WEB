@@ -2,7 +2,6 @@ function ClTable()
 {
     let n = document.getElementById("input").value;
     let ClearTable = document.querySelector("table");
-    let container = document.getElementById("table-container");
 
     for (let i = 0; i < n; i++)
     {
@@ -11,9 +10,6 @@ function ClTable()
             ClearTable.rows[i].cells[j].style.backgroundColor = "white";
         }
     }
-
-    container.innerHTML = "";
-    container.appendChild(ClearTable);
     fl1 = false;
     fl2 = false;
 }
@@ -43,51 +39,51 @@ function createTable() {
                 }
             }
 
-            if (operation == 1 && (color === "white" | color === "blue"))
+            if (operation == 1)
             {
-                if (!fl1)
+                if ((color !== "blue") && !fl1)
                 {
-                    if (!color | color === "white")
-                    {
-                        this.style.backgroundColor = "blue";
-                    }
-                    else
-                    {
-                        this.style.backgroundColor = "white";
-                    }
+                    this.style.backgroundColor = "blue";
+                    this.classList.add("start");
                     fl1 = true;
+                }
+                else if ((color !== "blue") && fl1)
+                {
+                    let el = document.querySelector(".start");
+                    el.style.backgroundColor = "white";
+                    el.classList.remove("start");
+                    this.style.backgroundColor = "blue";
+                    this.classList.add("start");
                 }
                 else
                 {
-                    if (color === "blue")
-                    {
-                        this.style.backgroundColor = "white";
-                        fl1 = false;
-                    }
+                    this.classList.remove("start");
+                    this.style.backgroundColor = "white";
+                    fl1 = false;
                 }
             }
 
-            if (operation == 2 && (color === "white" | color === "red"))
+            if (operation == 2)
             {
-                if (!fl2)
+                if ((color !== "red") && !fl2)
                 {
-                    if (!color | color === "white")
-                    {
-                        this.style.backgroundColor = "red";
-                    }
-                    else
-                    {
-                        this.style.backgroundColor = "white";
-                    }
+                    this.style.backgroundColor = "red";
+                    this.classList.add("end");
                     fl2 = true;
+                }
+                else if ((color !== "red") && fl2)
+                {
+                    let el = document.querySelector(".end");
+                    el.style.backgroundColor = "white";
+                    el.classList.remove("end");
+                    this.style.backgroundColor = "red";
+                    this.classList.add("end");
                 }
                 else
                 {
-                    if (color === "red")
-                    {
-                        this.style.backgroundColor = "white";
-                        fl2 = false;
-                    }
+                    this.classList.remove("end");
+                    this.style.backgroundColor = "white";
+                    fl2 = false;
                 }
             }
 
@@ -118,13 +114,14 @@ function createTable() {
     let table = container.querySelector("table");
     let cell = table.rows[Math.floor(c/n)].cells[c%n];
     cell.style.backgroundColor = "green";
-    container.innerHTML = "";
-    container.appendChild(table);
+    // container.innerHTML = "";
+    // container.appendChild(table);
   }
 
 
 
-
+  let current_start;
+  let current_finish;
   let operation = 0;
   let fl1 = false;
   let fl2 = false;
