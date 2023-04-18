@@ -1,3 +1,24 @@
+function ClTable()
+{
+    let n = document.getElementById("input").value;
+    let ClearTable = document.querySelector("table");
+    let container = document.getElementById("table-container");
+
+    for (let i = 0; i < n; i++)
+    {
+        for (let j = 0; j < n; j++)
+        {
+            ClearTable.rows[i].cells[j].style.backgroundColor = "white";
+        }
+    }
+
+    container.innerHTML = "";
+    container.appendChild(ClearTable);
+    fl1 = false;
+    fl2 = false;
+}
+
+
 function createTable() {
     let n = document.getElementById("input").value;
     let container = document.getElementById("table-container");
@@ -75,16 +96,9 @@ function createTable() {
       }
       table.appendChild(row);
     }
-
     container.innerHTML = "";
     container.appendChild(table);
   }
-
-
-  let operation = 0;
-  let fl1 = false;
-  let fl2 = false;
-
 
   function Op1()
   {
@@ -111,15 +125,13 @@ function createTable() {
 
 
 
-
-
-
+  let operation = 0;
+  let fl1 = false;
+  let fl2 = false;
   let start;
   let finish;
   let mtrx = [];
   let mtrxS = [];
-  let path = [];
-
 
 
 
@@ -188,13 +200,31 @@ function createTable() {
                     {
                         mtrxS[k][(i + 1) * mtrx.length + j] = 1;
                     }
+                    if (i != 0 && j != 0 && mtrx[i - 1][j - 1] != 1) // движение вверх-влево
+                    {
+                        mtrxS[k][(i - 1) * mtrx.length + j - 1] = 1;
+                    }
+                    if (i != 0 && j != mtrx.length-1 && mtrx[i - 1][j + 1] != 1) // движение вверх-вправо
+                    {
+                        mtrxS[k][(i - 1) * mtrx.length + j + 1] = 1;
+                    }
+                    if (i != mtrx.length-1 && j != 0 && mtrx[i + 1][j - 1] != 1) // движение вниз-влево
+                    {
+                        mtrxS[k][(i + 1) * mtrx.length + j - 1] = 1;
+                    }
+                    if (i != mtrx.length-1 && j != mtrx.length-1 && mtrx[i + 1][j + 1] != 1) // движение вниз-вправо
+                    {
+                        mtrxS[k][(i + 1) * mtrx.length + j + 1] = 1;
+                    }
                 }
             }
         }
         dijkstraWithPath(mtrxS,start,finish);
     }
 
-    function dijkstraWithPath(adjacencyMatrix, startNode, endNode) {
+    function dijkstraWithPath(adjacencyMatrix, startNode, endNode) 
+    {
+        let path = [];
         const numNodes = adjacencyMatrix.length;
         const distances = Array(numNodes).fill(Infinity);
         const visited = Array(numNodes).fill(false);
@@ -231,9 +261,14 @@ function createTable() {
           path.unshift(currentNode);
           currentNode = prev[currentNode];
         }
-      //console.log(path);
-         for (let i = 1; i < path.length - 1; i++)
-         {
-             changeCell(path[i]);
-         }
-       }
+      console.log(path.length);
+      if (path.length == 1)
+      alert("Маршрута нету");
+      else
+      {
+        for (let i = 1; i < path.length - 1; i++)
+            {
+                changeCell(path[i]);
+            }
+      }
+    }
