@@ -33,6 +33,8 @@ function Clear_path()
 
 
 function createTable() {
+    fl1 = false;
+    fl2 = false;
     let n = document.getElementById("input").value;
     let container = document.getElementById("table-container");
     let table = document.createElement("table");
@@ -147,12 +149,13 @@ function createTable() {
   let mtrx = [];
   let mtrxS = [];
 
-
+  let s_x;
+  let s_y;
+  let f_x;
+  let f_y;
 
   function matrix()
   {
-    if (!fl1 | !fl2)
-        return;
     let n = document.getElementById("input").value;
     let container = document.getElementById("table-container");
     let table = container.querySelector("table");
@@ -277,6 +280,7 @@ function createTable() {
           path.unshift(currentNode);
           currentNode = prev[currentNode];
         }
+      console.log(path.length);
       if (path.length == 1)
       alert("Маршрута нету");
       else
@@ -287,3 +291,4 @@ function createTable() {
             }
       }
     }
+

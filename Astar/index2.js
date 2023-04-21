@@ -12,6 +12,7 @@ function Astar(NodeStart,NodeEnd, walls)
 
       if (currentNode.x === NodeEnd.x && currentNode.y === NodeEnd.y)
       {
+        console.log(closedSet.length)
         console.log("Путь найден")
 
         return reconstructPath(currentNode);
@@ -113,10 +114,11 @@ function get_lowest_f(nodes) {
 
 
 function heuristic(currentNode, NodeEnd)
-{
-  return Math.max(Math.abs(currentNode.x - NodeEnd.x),Math.abs(currentNode.y - NodeEnd.y))
+{ 
+  let d1 = Math.abs(currentNode.x - NodeEnd.x);
+  let d2 = Math.abs(currentNode.y - NodeEnd.y);
+  return d1 + d2;
 }
-
 
 class Node
 {
@@ -128,4 +130,20 @@ class Node
     this.g = Infinity;
     this.f = Infinity;
   }
+}
+
+let walls = [
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0]
+];
+
+let NodeStart = new Node(0, 0);
+let NodeEnd = new Node(4, 4);
+let path = Astar(NodeStart,NodeEnd, walls);
+for (let i = 0; i < path.length; i++)
+{
+  console.log(path[i].x, " ", path[i].y);
 }
