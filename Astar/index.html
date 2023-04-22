@@ -59,6 +59,21 @@
             </div>
             <div class="empty_block_right"></div>
         </div>
+        <div class="table_area">
+            <div class="empty_block_l"></div>
+            <div class="button_block_l">
+                <button class="btn first_point_button" id="btn1" onclick = "Op2()">Начальная точка</button>
+                <button class="btn last_point_button" id="btn2" onclick = "Op3()">Конечная точка</button>
+                <button class="btn wall_button" id="btn3" onclick = "Op1()">Поставить стену</button>
+                <button class="btn find_short_path_button" id="btn4" onclick = "matrix()">Найти путь</button>
+            </div>
+            <div class="table" id="table-container"></div>
+            <div class="button_block_r">
+                <button class="btn clear_path_button" id="btn5" onclick = "Clear_path()">Очистить путь</button>
+                <button class="btn clear_map_button" id="btn6" onclick = "ClTable()">Очистить карту</button>
+            </div>
+            <div class="empty_block_r"></div>
+        </div>
     </div>
 </body>
 </html>

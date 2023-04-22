@@ -113,6 +113,12 @@ function createTable() {
     }
     container.innerHTML = "";
     container.appendChild(table);
+
+    for (let i = 1; i <= 6; i++)
+    {
+      let btn = document.getElementById("btn" + i);
+      btn.style = "opacity: 100";
+    }
   }
 
   function Op1()
