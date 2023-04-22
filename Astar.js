@@ -60,76 +60,76 @@ function Click(event)
     let i = Math.floor(RightX / cube);
     let j = Math.floor(RightY / cube);
 
-    let cellY = i * cube;
-    let cellX = j * cube;
+    let cellX = i * cube;
+    let cellY = j * cube;
     switch(operation)
     {
         case 0:
-            if (start[0] === i && start[1] == j)
+            if (start[0] === j && start[1] == i)
             {
                 start = [-1, -1];
             }
-            if (end[0] === i && end[1] == j)
+            if (end[0] === j && end[1] == i)
             {
                 end = [-1, -1];
             }
-            if (matrix[i][j])
+            if (matrix[j][i])
             {
-                matrix[i][j] = 0;
+                matrix[j][i] = 0;
                 context.fillStyle = "#ffffff";
-                context.fillRect(cellY + 0.5 , cellX + 0.5, cube - 1, cube - 1);
+                context.fillRect(cellX + 0.5 , cellY + 0.5, cube - 1, cube - 1);
             }
             else
             {
-                matrix[i][j] = 1;
+                matrix[j][i] = 1;
                 context.fillStyle = "#000000";
-                context.fillRect(cellY, cellX, cube, cube);
+                context.fillRect(cellX, cellY, cube, cube);
             }
             break;
 
         case 1:
-            if (matrix[i][j]){
-                matrix[i][j] = 0;
+            if (matrix[j][i]){
+                matrix[j][i] = 0;
                 context.fillStyle="#ffffff";
-                context.fillRect(CellY * cube + 0.5, CellX * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(CellX * cube + 0.5, CellY * cube + 0.5, cube - 1, cube - 1);
             }
             if (JSON.stringify(start) !== JSON.stringify([-1, -1])){
                 context.fillStyle="#ffffff";
-                context.fillRect(start[0] * cube + 0.5, start[1] * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(start[1] * cube + 0.5, start[0] * cube + 0.5, cube - 1, cube - 1);
             }
             if (JSON.stringify([j, i]) === JSON.stringify(end)){
                 context.fillStyle="#ffffff";
-                context.fillRect(end[0] * cube + 0.5, end[1] * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(end[1] * cube + 0.5, end[0] * cube + 0.5, cube - 1, cube - 1);
                 end = [-1, -1];
             }
 
             context.fillStyle="blue";
-            context.fillRect(cellY + 0.5, cellX + 0.5, cube - 1, cube - 1);
-            start[0] = i;
-            start[1] = j;
+            context.fillRect(cellX + 0.5, cellY + 0.5, cube - 1, cube - 1);
+            start[0] = j;
+            start[1] = i;
             break;
 
         case 2:
-            if (matrix[i][j])
+            if (matrix[j][i])
             {
-                matrix[i][j] = 0;
+                matrix[j][i] = 0;
                 context.fillStyle = "#ffffff";
-                context.fillRect(cellY + 0.5 , cellX + 0.5, cube - 1, cube - 1);
+                context.fillRect(cellX + 0.5 , cellY + 0.5, cube - 1, cube - 1);
             }
             if (JSON.stringify([j, i]) === JSON.stringify(start)){
                 context.fillStyle="#ffffff";
-                context.fillRect(start[0] * cube + 0.5, start[1] * cube * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(start[1] * cube + 0.5, start[0] * cube * cube + 0.5, cube - 1, cube - 1);
                 start = [-1, -1];
             }
             if (JSON.stringify(end) !== JSON.stringify([-1, -1])){
                 context.fillStyle="#ffffff";
-                context.fillRect(end[0] * cube + 0.5, end[1] * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(end[1] * cube + 0.5, end[0] * cube + 0.5, cube - 1, cube - 1);
             }
 
             context.fillStyle="red";
-            context.fillRect(cellY + 0.5, cellX + 0.5, cube - 1, cube - 1);
-            end[0] = i;
-            end[1] = j;
+            context.fillRect(cellX + 0.5, cellY + 0.5, cube - 1, cube - 1);
+            end[0] = j;
+            end[1] = i;
             break;
     }
 
@@ -141,18 +141,25 @@ function Queue()
 
     this.add_to = function(cell)//Добавляем ячейку и расстояние 
     {
-        if (this.Is_Empty)
+        if (this.Is_Empty())
             {
                 Set.push(cell);
             }
         else
         {
+            let fl = false;
             for (let i = 0; i < Set.length; i++)
             {
                 if (cell[1] < Set[i][1])
                 {
                     Set.splice(i, 0, cell);
+                    fl = true;
+                    break;
                 }
+            }
+            if (!fl)
+            {
+                Set.push(cell);
             }
         }
     }
@@ -170,51 +177,39 @@ function Queue()
 
 function heuristic(cur, end)
 {
-    return Math.abs(cur[0] - end[0]) + Math.abs(cur[1] - end[1]);
+    return  2 * (Math.abs(cur[0] - end[0]) + Math.abs(cur[1] - end[1]));
 }
 
-function getNeigbors(cur, end, G)
+function getNeigbors(cur, matrix, G)
 {
     let neighbours = [];
     let x = cur[0][0];
     let y = cur[0][1];
-    if(y != 0 && !matrix[x][y - 1] && G[x][y - 1])
-    {
-        neighbours.push([x, y - 1]);
-    }
-    if(y != n - 1 && !matrix[x][y + 1]&& G[x][y + 1])
-    {
-        neighbours.push([x, y + 1]);
-    }
-    if(x != 0 && !matrix[x - 1][y]&& G[x - 1][y])
-    {
-        neighbours.push([x - 1, y]);
-    }
-    if(x != n - 1 & !matrix[x + 1][y]&& G[x + 1][y])
+    if(x != n - 1 && !matrix[x + 1][y] && G[x + 1][y] === -1)
     {
         neighbours.push([x + 1, y]);
     }
+    if(y != n - 1 && !matrix[x][y + 1] && G[x][y + 1] === -1)
+    {
+        neighbours.push([x, y + 1]);
+    }
+    if(x != 0 && !matrix[x - 1][y] && G[x - 1][y] === -1)
+    {
+        neighbours.push([x - 1, y]);
+    }
+    if(y != 0 && !matrix[x][y - 1] && G[x][y - 1] === -1)
+    {
+        neighbours.push([x, y - 1]);
+    }
 
-    if(!x && !y && !matrix[x - 1][y - 1]&& G[x - 1][y - 1])
-    {
-        neighbours.push([x - 1, y - 1]);
-    }
-    if(!x && y != n - 1 && !matrix[x - 1][y + 1]&& G[x - 1][y + 1])
-    {
-        neighbours.push([x - 1, y + 1]);
-    }
-    if(x != n - 1 && !y && !matrix[x + 1][y - 1]&& G[x + 1][y - 1])
-    {
-        neighbours.push([x + 1, y - 1]);
-    }
-    if(x != n - 1 && y != n - 1 && !matrix[i + 1][y + 1]&& G[x + 1][y + 1])
-    {
-        neighbours.push([x + 1, y + 1]);
-    }
     return neighbours;
 }
 
-function Astar(start, end)
+async function wait() {
+    return new Promise(resolve => setTimeout(resolve, 100));
+}
+
+async function Astar(start, end)
 {
     let queue = new Queue();
     let GScores = getMatrix(n, -1);
@@ -232,7 +227,7 @@ function Astar(start, end)
         }
     }
     queue.add_to([start, heuristic(start, end)]);
-    while(!queue.Is_Empty)
+    while(!queue.Is_Empty())
     {
         let current = queue.take_first();
         if (current[0][0] === end[0] && current[0][1] === end[1])
@@ -245,8 +240,10 @@ function Astar(start, end)
         {
             let neigbor = neighbours[i];
 
+
+            await wait();
             context.fillStyle = "#cdcdcd";
-            context.fillRect(neigbor[1] * cube, neigbor[0] * cube, cube, cube);
+            context.fillRect(neigbor[1] * cube + 1, neigbor[0] * cube + 1, cube - 1, cube - 1);
 
             let nX = neigbor[0];
             let nY = neigbor[1];
@@ -257,12 +254,29 @@ function Astar(start, end)
             {
                 parents[nX][nY][0] = cX;
                 parents[nX][nY][1] = cY;
-                GScores[nX][nY] = Gscores[cX][cY] + 1;
-                queue.add_to([neigbor, Gscores[nX][nY]] + heuristic(neigbor, end));
+                GScores[nX][nY] = GScores[cX][cY] + 1;
+                queue.add_to([neigbor, GScores[nX][nY] + heuristic(neigbor, end)]);
             }
         }
     }
+    context.fillStyle = "red";
+    context.fillRect(end[1] * cube, end[0] * cube, cube - 1, cube - 1);
+    if (JSON.stringify(parents[end[0]][end[1]]) !== JSON.stringify([-1, -1]))
+    {
+        let cell = parents[end[0]][end[1]];
+        while (cell[0] !== -1 && cell[1] !== -1)
+        {
+            context.fillStyle = "green";
+            context.fillRect(cell[1] * cube, cell[0] * cube, cube - 1, cube - 1);
+            cell = parents[cell[0]][cell[1]];
+        }
+        context.fillStyle = "blue";
+        context.fillRect(start[1] * cube, start[0] * cube, cube - 1, cube - 1);
+    }
+    else
+    {
+        alert("Пути нет");
+    }
 }
-
 
 
