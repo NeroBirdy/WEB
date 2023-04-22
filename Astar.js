@@ -185,13 +185,13 @@ function getNeigbors(cur, matrix, G)
     let neighbours = [];
     let x = cur[0][0];
     let y = cur[0][1];
-    if(x != n - 1 && !matrix[x + 1][y] && G[x + 1][y] === -1)
-    {
-        neighbours.push([x + 1, y]);
-    }
     if(y != n - 1 && !matrix[x][y + 1] && G[x][y + 1] === -1)
     {
         neighbours.push([x, y + 1]);
+    }
+    if(x != n - 1 && !matrix[x + 1][y] && G[x + 1][y] === -1)
+    {
+        neighbours.push([x + 1, y]);
     }
     if(x != 0 && !matrix[x - 1][y] && G[x - 1][y] === -1)
     {
@@ -201,7 +201,22 @@ function getNeigbors(cur, matrix, G)
     {
         neighbours.push([x, y - 1]);
     }
-
+    if(x > 0 && y > 0 && !matrix[x - 1][y - 1] && G[x - 1][y - 1] === -1)
+    {
+        neighbours.push([x - 1, y - 1]);
+    }
+    if(x < n - 1 && y < n - 1 && !matrix[x + 1][y + 1] && G[x + 1][y + 1] === -1)
+    {
+        neighbours.push([x + 1, y + 1]);
+    }
+    if(x > 0 && y < n - 1 && !matrix[x - 1][y + 1] && G[x - 1][y + 1] === -1)
+    {
+        neighbours.push([x - 1, y + 1]);
+    }
+    if(x < n - 1 && y > 0 && !matrix[x + 1][y - 1] && G[x + 1][y - 1] === -1)
+    {
+        neighbours.push([x + 1, y - 1]);
+    }
     return neighbours;
 }
 
