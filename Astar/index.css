@@ -226,6 +226,12 @@ input::-webkit-inner-spin-button {
   width: 150px;
   margin-bottom: 6%;
   opacity: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 39px;
+  color: white;
 }
 
 .btn:hover {
