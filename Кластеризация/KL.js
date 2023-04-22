@@ -7,7 +7,7 @@ let dots = [];
 let colors = [];
 
 context.beginPath();
-context.fillStyle = "#cdcdcd";
+context.fillStyle = "#dbdbdb";
 context.fillRect(0, 0, canvas.width, canvas.height);
 
 
@@ -22,7 +22,7 @@ centers.push([x, y]);
 
 // Рисуем точку(Центр кластера)
 context.beginPath();
-context.arc(x, y, 5, 0, 2 * Math.PI);
+context.arc(x, y, 10, 0, 2 * Math.PI);
 context.fillStyle = color;
 context.fill();
 }
@@ -39,7 +39,7 @@ dots.push([x,y]);
 context.beginPath();
 context.arc(x, y, 5, 0, 2 * Math.PI);
 context.fillStyle = "black";
-context.stroke();
+context.fill();
 });
 
 
@@ -92,7 +92,7 @@ function recontrucrion(clasters)
         }
         let newCenterX = sumX / clasters[i].length;
         let newCenterY = sumY / clasters[i].length;
-        newCenters.push([newCenterX,newCenterY,centers[i].color]);
+        newCenters.push([newCenterX,newCenterY]);
         // for(let j = 0; j < clasters[i].length; j++)
         // {
         //     let newDotX = (clasters[i][j][0] + newCenterX) / 2;
@@ -106,29 +106,32 @@ function recontrucrion(clasters)
 
 function KMeans()
 {
+    let count = 0;
+    //console.log(dots);
     clasters = assignClusters(dots, centers);
     let newCenters = recontrucrion(clasters);
     while (JSON.stringify(newCenters) !== JSON.stringify(centers))
     {
+        count++;
         centers = newCenters;
         clasters = assignClusters(dots, centers);
         newCenters = recontrucrion(clasters);
     }
+    console.log(count)
     //context.clearRect(0, 0, canvas.width,canvas.height);
     context.beginPath();
     context.fillStyle = "#cdcdcd";
     context.fillRect(0, 0, canvas.width, canvas.height);
     for(let i = 0; i < clasters.length; i++)
     {
-
         for (let j = 0; j < clasters[i].length; j++)
         {
             context.beginPath();
-            context.arc((clasters[i][j][0] + centers[i][0])/3, (clasters[i][j][1] + centers[i][1])/3, 5, 0, 2 * Math.PI);
+            context.arc((clasters[i][j][0] + centers[i][0]) / 2, (clasters[i][j][1] + centers[i][1]) / 2, 5, 0, 2 * Math.PI);
             context.fillStyle = colors[i];
             context.fill();
         }
         
     }
-    console.log(clasters)
+    //console.log(clasters)
 }
