@@ -7,13 +7,14 @@ let matrix;
 let start = [-1, -1];
 let end = [-1, -1];
 
+
 function createMap()
 {
     n = document.getElementById("input").value;
-    matrix = getMatrix(n, 0);
-    context.clearRect(0, 0, 500, 500);
+    matrix = getMatrix(0);
+    context.clearRect(0, 0, 700, 700);
     context.beginPath();
-    cube = 500 / n;
+    cube = 700 / n;
     let x = 0;
     let y = 0;
     for (let i = 0; i <= n; i++)
@@ -38,7 +39,7 @@ function createMap()
     document.getElementById("walls").onclick = function(){operation = 0;};
 }
 
-function getMatrix(n, count) {
+function getMatrix(count) {
     let matrix = new Array(n);
     for (let i = 0; i < n; ++i)
     {
@@ -50,6 +51,108 @@ function getMatrix(n, count) {
     }
     return matrix;
 }
+
+async function generatePrimMaze() {
+
+    start = [-1, -1];
+    end = [-1, -1];
+    matrix =  getMatrix(1);
+    for (let i = 0; i < n; i++)
+    {
+        for(let j = 0; j < n; j++)
+        {
+            context.fillStyle="#000000";
+            context.fillRect(j * cube + 0.5, i * cube + 0.5, cube - 1, cube - 1);
+        }
+    }
+    
+    let ost = n % 2;
+    let count = (n - ost) / 2;
+    let cells = [];
+    for (let y = 0; y < count; y++) {
+      cells[y] = [];
+      for (let x = 0; x < count; x++) {
+        let cell = {
+          x: x,
+          y: y,
+          index: [x, y],
+          status: "unvisited",
+          adjacents: [],
+          connections: []
+        };
+        cells[y][x] = cell;
+        if (x + 1 < 0) {
+            let up = cells[y][x + 1];
+            cell.adjacents.push(up);
+            up.adjacents.push(cell);
+        }
+        if (y - 1 >= 0) {
+            let right = cells[y - 1][x];
+            cell.adjacents.push(right);
+            right.adjacents.push(cell);
+        }
+        if (y + 1 < 0) {
+            let left = cells[y + 1][x];
+            cell.adjacents.push(left);
+            left.adjacents.push(cell);
+        }
+        if (x - 1 >= 0) {
+            let down = cells[y][x - 1];
+            cell.adjacents.push(down);
+            down.adjacents.push(cell);
+        }
+      }
+    }
+  let visited = new Set();
+  let frontier = new Set();
+  let startY = Math.floor(Math.random() * cells.length);
+  let startX = Math.floor(Math.random() * cells[startY].length);
+  let st = cells[startY][startX];
+  frontier.add(st);
+  let current = st;
+  recursiveSpanningTree();
+  async function recursiveSpanningTree() {
+    frontier.delete(current);
+    visited.add(current);
+    current.status = "visited";
+    matrix[current.x * 2 + 1][current.y * 2 + 1] = 0;
+    context.fillStyle="#ffffff";
+    context.fillRect((current.y * 2 + 1) * cube + 0.5, (current.x * 2 + 1) * cube + 0.5, cube - 1, cube - 1);
+
+    function addToFrontier(adjCells) {
+        for (let c of adjCells) {
+          if (c.status === "unvisited") {
+            frontier.add(c);
+            c.status = "frontier";
+            c.connections.push(current);
+          } else if (c.status === "frontier") {
+            c.connections.push(current);
+          }
+        }
+      }
+      addToFrontier(current.adjacents);
+    let iteratable = [...frontier.values()];
+    let randomIndex = Math.floor(Math.random() * iteratable.length);
+    let frontierCell = iteratable[randomIndex];
+    if (frontierCell) {
+        let randomConn = Math.floor(
+          Math.random() * frontierCell.connections.length
+        );
+        let connectX = frontierCell.x + frontierCell.connections[randomConn].x;
+        let connectY = frontierCell.y + frontierCell.connections[randomConn].y;
+        matrix[connectX + 1][connectY + 1] = 0;
+        context.fillStyle = "#ffffff";
+        context.fillRect((connectY + 1) * cube + 0.5, (connectX + 1) * cube + 0.5, cube - 1, cube - 1);
+
+      }
+     current = frontierCell;
+     if (frontier.size > 0) {
+        await wait(0);
+        recursiveSpanningTree();
+     }
+   }
+}
+
 
 
 function Click(event)
@@ -104,7 +207,7 @@ function Click(event)
             }
 
             context.fillStyle="blue";
-            context.fillRect(cellX + 0.5, cellY + 0.5, cube - 1, cube - 1);
+            context.fillRect(cellX , cellY , cube - 2, cube - 2);
             start[0] = j;
             start[1] = i;
             break;
@@ -177,10 +280,10 @@ function Queue()
 
 function heuristic(cur, end)
 {
-    return  2 * (Math.abs(cur[0] - end[0]) + Math.abs(cur[1] - end[1]));
+    return  Math.max(Math.abs(end[0] - cur[0]),Math.abs(end[1] - cur[1]));
 }
 
-function getNeigbors(cur, matrix, G)
+function getNeigbors(cur, G)
 {
     let neighbours = [];
     let x = cur[0][0];
@@ -220,14 +323,18 @@ function getNeigbors(cur, matrix, G)
     return neighbours;
 }
 
-async function wait() {
-    return new Promise(resolve => setTimeout(resolve, 100));
+async function wait(c) {
+    if (c)
+    {
+        return new Promise(resolve => setTimeout(resolve, 100));
+    }
+    return new Promise(resolve => setTimeout(resolve, 10));
 }
 
 async function Astar(start, end)
 {
     let queue = new Queue();
-    let GScores = getMatrix(n, -1);
+    let GScores = getMatrix(-1);
 
     GScores[start[0]][start[1]] = 0;
     let parents = new Array(n);//Инициализируем Массив Родителей, позже понадобится для окраски пути
@@ -250,13 +357,15 @@ async function Astar(start, end)
             break;
         }
 
-        let neighbours = getNeigbors(current, matrix, GScores);
+        let neighbours = getNeigbors(current, GScores);
         for (let i = 0; i < neighbours.length; i++)
         {
             let neigbor = neighbours[i];
 
+            context.fillStyle = "orange";
+            context.fillRect(neigbor[1] * cube + 1, neigbor[0] * cube + 1, cube - 1, cube - 1);
+            await wait(1);
 
-            await wait();
             context.fillStyle = "#cdcdcd";
             context.fillRect(neigbor[1] * cube + 1, neigbor[0] * cube + 1, cube - 1, cube - 1);
 
@@ -282,7 +391,7 @@ async function Astar(start, end)
         while (cell[0] !== -1 && cell[1] !== -1)
         {
             context.fillStyle = "green";
-            context.fillRect(cell[1] * cube, cell[0] * cube, cube - 1, cube - 1);
+            context.fillRect(cell[1] * cube + 1, cell[0] * cube + 1, cube - 1, cube - 1);
             cell = parents[cell[0]][cell[1]];
         }
         context.fillStyle = "blue";
