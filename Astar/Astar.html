@@ -5,16 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <canvas class="canvas" width="700" height="700"></canvas>
+    <div class="area">
+        <div class="header">
+            <div class="back_button_area">
+                <div class="back_button_fon">
+                    <div class="back_button"></div>
+                </div>
+                <div class="button_empty"></div>
+            </div>
+            <div class="title_area">
+                <p class="title">
+                    A-star
+                </p>
+                <div class="title_empty"></div>
+            </div>
+            <div class="empty_rigth"></div>
+        </div>
+        <div class="input_area">
+            <div class="empty_block_left"></div>
+            <div class="text_block">
+                <div class="text">
+                    Введите размер матрицы
+                </div>
+            </div>
+            <div class="input_block">
+                <input class="input" value="1" type="number" id="input" min="1">
+            </div>
+            <div class="button_block">
+                <button id="map" class="button" onclick = "createMap()"></button>
+            </div>
+            <div class="empty_block_right"></div>
+        </div>
+        <div class="table_area">
+            <div class="canvas_area">
+                <canvas class="canvas" width="700" height="700"></canvas>
+            </div>
+            <div class="button_block_t">
+                <button class="btn first_point_button" id = "start">Начальная точка</button>
+                <button class="btn last_point_button" id = "end">Конечная точка</button>
+                <button class="btn wall_button" id="walls">Стенка</button>
+                <button class="btn clear_path_button" id = "maze" onclick = "generatePrimMaze()">Сгенерировать лабиринт</button>
+                <button class="btn find_short_path_button" onclick="Astar(start,end)">Найти путь</button>
+            </div>
+        </div>
+    </div>
+    <!-- <canvas class="canvas" width="700" height="700"></canvas>
     <button id = "map" onclick = "createMap()">Создать карту</button>
     <input class="input" type="number" id="input" min="1">
     <button id = "walls">Стенка</button>
     <button id = "start" >Начальная точка</button>
     <button id = "end">Конечная точка</button>
     <button id = "maze" onclick = "generatePrimMaze()">Сгенерировать лабиринт</button>
-    <button onclick = "Astar(start,end)">Найти путь</button>
+    <button onclick = "Astar(start,end)">Найти путь</button> -->
     <script src="Astar.js"></script>
 </body>
 </html>
