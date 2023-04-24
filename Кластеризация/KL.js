@@ -22,9 +22,9 @@ centers.push([x, y]);
 
 // Рисуем точку(Центр кластера)
 context.beginPath();
-context.arc(x, y, 10, 0, 2 * Math.PI);
+// context.arc(x, y, 10, 0, 2 * Math.PI);
 context.fillStyle = color;
-context.fill();
+context.fillRect(x,y, 20,20);
 }
 
 canvas.addEventListener("click", function(event) {
@@ -122,6 +122,12 @@ function KMeans()
     context.beginPath();
     context.fillStyle = "#cdcdcd";
     context.fillRect(0, 0, canvas.width, canvas.height);
+    for(let i = 0; i < centers.length; i++)
+    {
+        context.fillStyle = colors[i];
+        context.fillRect(centers[i][0], centers[i][1], 20, 20);
+    }
+
     for(let i = 0; i < clasters.length; i++)
     {
         for (let j = 0; j < clasters[i].length; j++)
