@@ -6,36 +6,29 @@ let centers = [];
 let dots = [];
 let colors = [];
 
-context.beginPath();
 context.fillStyle = "#dbdbdb";
 context.fillRect(0, 0, canvas.width, canvas.height);
 
 
 function addDot() {
-// Получаем случайные координаты для зеленой точки
+
 let x = Math.floor(Math.random() * canvas.width);
 let y = Math.floor(Math.random() * canvas.height);
 let color = "#" + Math.floor(Math.random()* 16777215).toString(16);
 colors.push(color);
 centers.push([x, y]);
-
-
-// Рисуем точку(Центр кластера)
-context.beginPath();
-// context.arc(x, y, 10, 0, 2 * Math.PI);
 context.fillStyle = color;
 context.fillRect(x,y, 20,20);
+context.fillStyle = "black";
+context.stroke();
 }
 
 canvas.addEventListener("click", function(event) {
-// Получаем координаты клика canvas
+
 let x = event.offsetX;
 let y = event.offsetY;
 dots.push([x,y]);
 
-
-
-// Рисуем точку в месте клика
 context.beginPath();
 context.arc(x, y, 5, 0, 2 * Math.PI);
 context.fillStyle = "black";
@@ -79,7 +72,6 @@ function assignClusters(dots, centers)
 
 function recontrucrion(clasters)
 {
-    //let newDots = [];
     let newCenters = [];
     for (let i = 0; i < clasters.length; i++)
     {
@@ -93,21 +85,13 @@ function recontrucrion(clasters)
         let newCenterX = sumX / clasters[i].length;
         let newCenterY = sumY / clasters[i].length;
         newCenters.push([newCenterX,newCenterY]);
-        // for(let j = 0; j < clasters[i].length; j++)
-        // {
-        //     let newDotX = (clasters[i][j][0] + newCenterX) / 2;
-        //     let newDotY = (clasters[i][j][1] + newCenterY) / 2;
-        //     newDots.push([newDotX, newDotY]);
-        // }
     }
-    // dots = newDots;
     return newCenters;
 }
 
 function KMeans()
 {
     let count = 0;
-    //console.log(dots);
     clasters = assignClusters(dots, centers);
     let newCenters = recontrucrion(clasters);
     while (JSON.stringify(newCenters) !== JSON.stringify(centers))
@@ -118,7 +102,6 @@ function KMeans()
         newCenters = recontrucrion(clasters);
     }
     console.log(count)
-    //context.clearRect(0, 0, canvas.width,canvas.height);
     context.beginPath();
     context.fillStyle = "#cdcdcd";
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -136,8 +119,18 @@ function KMeans()
             context.arc((clasters[i][j][0] + centers[i][0]) / 2, (clasters[i][j][1] + centers[i][1]) / 2, 5, 0, 2 * Math.PI);
             context.fillStyle = colors[i];
             context.fill();
-        }
-        
+        } 
     }
-    //console.log(clasters)
+}
+
+
+function CleareMap()
+{
+    context.clearRect(0, 0, 1200, 900);
+    context.fillStyle = "#dbdbdb";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    dots = [];
+    centers = [];
+    clasters = [];
+    colors = [];
 }

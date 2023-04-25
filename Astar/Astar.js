@@ -1,11 +1,11 @@
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
-let slider = document.getElementById("slider");
+let slider = document.getElementById("Slider");
 let value = document.getElementById("value");
 
 
-let time = 100 - document.getElementById("slider").value;
+let time;
 let n;
 let cube;
 let matrix;
@@ -67,7 +67,7 @@ async function generatePrimMaze() {
         for(let j = 0; j < n; j++)
         {
             context.fillStyle="#1c1c1c";
-            context.fillRect(j * cube + 0.5, i * cube + 0.5, cube - 1, cube - 1);
+            context.fillRect(j * cube + 1, i * cube + 1, cube - 2, cube - 2);
         }
     }
     
@@ -122,7 +122,7 @@ async function generatePrimMaze() {
     current.status = "visited";
     matrix[current.x * 2 + 1][current.y * 2 + 1] = 0;
     context.fillStyle="#ffffff";
-    context.fillRect((current.y * 2 + 1) * cube + 0.5, (current.x * 2 + 1) * cube + 0.5, cube - 1, cube - 1);
+    context.fillRect((current.y * 2 + 1) * cube + 1, (current.x * 2 + 1) * cube + 1, cube - 2, cube - 2);
 
     function addToFrontier(adjCells) {
         for (let c of adjCells) {
@@ -147,7 +147,7 @@ async function generatePrimMaze() {
         let connectY = frontierCell.y + frontierCell.connections[randomConn].y;
         matrix[connectX + 1][connectY + 1] = 0;
         context.fillStyle = "#ffffff";
-        context.fillRect((connectY + 1) * cube + 0.5, (connectX + 1) * cube + 0.5, cube - 1, cube - 1);
+        context.fillRect((connectY + 1) * cube + 1, (connectX + 1) * cube + 1, cube - 2, cube - 2);
 
       }
      current = frontierCell;
@@ -191,7 +191,7 @@ function Click(event)
             {
                 matrix[j][i] = 1;
                 context.fillStyle = "#1c1c1c";
-                context.fillRect(cellX, cellY, cube, cube);
+                context.fillRect(cellX + 1, cellY + 1, cube - 2, cube - 2);
             }
             break;
 
@@ -235,7 +235,7 @@ function Click(event)
             }
 
             context.fillStyle="#d21f3c";
-            context.fillRect(cellX + 1, cellY + 1, cube - 2, cube - 2);
+            context.fillRect(cellX + 0.5, cellY + 0.5, cube - 2, cube - 2);
             end[0] = j;
             end[1] = i;
             break;
@@ -309,32 +309,32 @@ function getNeigbors(cur, G)
     {
         neighbours.push([x, y - 1]);
     }
-    if(x > 0 && y > 0 && !matrix[x - 1][y - 1] && G[x - 1][y - 1] === -1)
-    {
-        neighbours.push([x - 1, y - 1]);
-    }
-    if(x < n - 1 && y < n - 1 && !matrix[x + 1][y + 1] && G[x + 1][y + 1] === -1)
-    {
-        neighbours.push([x + 1, y + 1]);
-    }
-    if(x > 0 && y < n - 1 && !matrix[x - 1][y + 1] && G[x - 1][y + 1] === -1)
-    {
-        neighbours.push([x - 1, y + 1]);
-    }
-    if(x < n - 1 && y > 0 && !matrix[x + 1][y - 1] && G[x + 1][y - 1] === -1)
-    {
-        neighbours.push([x + 1, y - 1]);
-    }
+    // if(x > 0 && y > 0 && !matrix[x - 1][y - 1] && G[x - 1][y - 1] === -1)
+    // {
+    //     neighbours.push([x - 1, y - 1]);
+    // }
+    // if(x < n - 1 && y < n - 1 && !matrix[x + 1][y + 1] && G[x + 1][y + 1] === -1)
+    // {
+    //     neighbours.push([x + 1, y + 1]);
+    // }
+    // if(x > 0 && y < n - 1 && !matrix[x - 1][y + 1] && G[x - 1][y + 1] === -1)
+    // {
+    //     neighbours.push([x - 1, y + 1]);
+    // }
+    // if(x < n - 1 && y > 0 && !matrix[x + 1][y - 1] && G[x + 1][y - 1] === -1)
+    // {
+    //     neighbours.push([x + 1, y - 1]);
+    // }
     return neighbours;
 }
 
 async function wait(c) {
-    time = 100 - document.getElementById("slider").value;
+    time = 200 - document.getElementById("Slider").value;
     if (c)
     {
         return new Promise(resolve => setTimeout(resolve, time));
     }
-    return new Promise(resolve => setTimeout(resolve, 10));
+    return new Promise(resolve => setTimeout(resolve, 5));
 }
 
 async function Astar(start, end)
