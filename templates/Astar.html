@@ -7,6 +7,7 @@
     <title>Document</title>
     <!-- <link rel="stylesheet" href="index.css"> -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="area">
@@ -29,11 +30,11 @@
             <div class="empty_block_left"></div>
             <div class="text_block">
                 <div class="text">
-                    Введите размер матрицы
+                    Введите размер карты
                 </div>
             </div>
             <div class="input_block">
-                <input class="input" value="1" type="number" id="input" min="1">
+                <input class="input" value="3" type="number" id="input" min="1">
             </div>
             <div class="button_block">
                 <button id="map" class="button" onclick = "createMap()"></button>
@@ -50,9 +51,12 @@
                 <button class="btn wall_button" id="walls">Стенка</button>
                 <button class="btn clear_path_button" id = "maze" onclick = "generatePrimMaze()">Сгенерировать лабиринт</button>
                 <button class="btn find_short_path_button" onclick="Astar(start,end)">Найти путь</button>
+                <button class = "btn" onclick = "createMap()">Очистить карту</button>
+                <label class = "label" for="Slider">Скорость анимации:</label>
+                <input type="range" min="0" max="200" id="Slider" class = "slider">
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='scripts/Astar.js') }}"></script>
+    <script src = "{{ url_for('static', filename='scripts/Astar.js') }}"></script>
 </body>
 </html>

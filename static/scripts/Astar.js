@@ -1,6 +1,11 @@
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
+let slider = document.getElementById("Slider");
+let value = document.getElementById("value");
+
+
+let time;
 let n;
 let cube;
 let matrix;
@@ -61,8 +66,8 @@ async function generatePrimMaze() {
     {
         for(let j = 0; j < n; j++)
         {
-            context.fillStyle="#000000";
-            context.fillRect(j * cube + 0.5, i * cube + 0.5, cube - 1, cube - 1);
+            context.fillStyle="#1c1c1c";
+            context.fillRect(j * cube + 1, i * cube + 1, cube - 2, cube - 2);
         }
     }
     
@@ -117,7 +122,7 @@ async function generatePrimMaze() {
     current.status = "visited";
     matrix[current.x * 2 + 1][current.y * 2 + 1] = 0;
     context.fillStyle="#ffffff";
-    context.fillRect((current.y * 2 + 1) * cube + 0.5, (current.x * 2 + 1) * cube + 0.5, cube - 1, cube - 1);
+    context.fillRect((current.y * 2 + 1) * cube + 1, (current.x * 2 + 1) * cube + 1, cube - 2, cube - 2);
 
     function addToFrontier(adjCells) {
         for (let c of adjCells) {
@@ -142,7 +147,7 @@ async function generatePrimMaze() {
         let connectY = frontierCell.y + frontierCell.connections[randomConn].y;
         matrix[connectX + 1][connectY + 1] = 0;
         context.fillStyle = "#ffffff";
-        context.fillRect((connectY + 1) * cube + 0.5, (connectX + 1) * cube + 0.5, cube - 1, cube - 1);
+        context.fillRect((connectY + 1) * cube + 1, (connectX + 1) * cube + 1, cube - 2, cube - 2);
 
       }
      current = frontierCell;
@@ -180,13 +185,13 @@ function Click(event)
             {
                 matrix[j][i] = 0;
                 context.fillStyle = "#ffffff";
-                context.fillRect(cellX + 0.5 , cellY + 0.5, cube - 1, cube - 1);
+                context.fillRect(cellX + 1 , cellY + 1, cube - 2, cube - 2);
             }
             else
             {
                 matrix[j][i] = 1;
-                context.fillStyle = "#000000";
-                context.fillRect(cellX, cellY, cube, cube);
+                context.fillStyle = "#1c1c1c";
+                context.fillRect(cellX + 1, cellY + 1, cube - 2, cube - 2);
             }
             break;
 
@@ -194,20 +199,20 @@ function Click(event)
             if (matrix[j][i]){
                 matrix[j][i] = 0;
                 context.fillStyle="#ffffff";
-                context.fillRect(CellX * cube + 0.5, CellY * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(CellX * cube + 1, CellY * cube + 1, cube - 2, cube - 2);
             }
             if (JSON.stringify(start) !== JSON.stringify([-1, -1])){
                 context.fillStyle="#ffffff";
-                context.fillRect(start[1] * cube + 0.5, start[0] * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(start[1] * cube + 1, start[0] * cube + 1, cube - 2, cube - 2);
             }
             if (JSON.stringify([j, i]) === JSON.stringify(end)){
                 context.fillStyle="#ffffff";
-                context.fillRect(end[1] * cube + 0.5, end[0] * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(end[1] * cube + 1, end[0] * cube + 1, cube - 2, cube - 2);
                 end = [-1, -1];
             }
 
-            context.fillStyle="blue";
-            context.fillRect(cellX , cellY , cube - 2, cube - 2);
+            context.fillStyle="#81d8d0";
+            context.fillRect(cellX + 1 , cellY + 1 , cube - 2, cube - 2);
             start[0] = j;
             start[1] = i;
             break;
@@ -217,20 +222,20 @@ function Click(event)
             {
                 matrix[j][i] = 0;
                 context.fillStyle = "#ffffff";
-                context.fillRect(cellX + 0.5 , cellY + 0.5, cube - 1, cube - 1);
+                context.fillRect(cellX + 1 , cellY + 1, cube - 1, cube - 1);
             }
             if (JSON.stringify([j, i]) === JSON.stringify(start)){
                 context.fillStyle="#ffffff";
-                context.fillRect(start[1] * cube + 0.5, start[0] * cube * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(start[1] * cube + 1, start[0] * cube * cube + 1, cube - 2, cube - 2);
                 start = [-1, -1];
             }
             if (JSON.stringify(end) !== JSON.stringify([-1, -1])){
                 context.fillStyle="#ffffff";
-                context.fillRect(end[1] * cube + 0.5, end[0] * cube + 0.5, cube - 1, cube - 1);
+                context.fillRect(end[1] * cube + 1, end[0] * cube + 1, cube - 2, cube - 2);
             }
 
-            context.fillStyle="red";
-            context.fillRect(cellX + 0.5, cellY + 0.5, cube - 1, cube - 1);
+            context.fillStyle="#d21f3c";
+            context.fillRect(cellX + 1, cellY + 1, cube - 2, cube - 2);
             end[0] = j;
             end[1] = i;
             break;
@@ -280,7 +285,7 @@ function Queue()
 
 function heuristic(cur, end)
 {
-    return  Math.max(Math.abs(end[0] - cur[0]),Math.abs(end[1] - cur[1]));
+    return  2 * Math.max(Math.abs(end[0] - cur[0]),Math.abs(end[1] - cur[1]));
 }
 
 function getNeigbors(cur, G)
@@ -304,31 +309,32 @@ function getNeigbors(cur, G)
     {
         neighbours.push([x, y - 1]);
     }
-    if(x > 0 && y > 0 && !matrix[x - 1][y - 1] && G[x - 1][y - 1] === -1)
-    {
-        neighbours.push([x - 1, y - 1]);
-    }
-    if(x < n - 1 && y < n - 1 && !matrix[x + 1][y + 1] && G[x + 1][y + 1] === -1)
-    {
-        neighbours.push([x + 1, y + 1]);
-    }
-    if(x > 0 && y < n - 1 && !matrix[x - 1][y + 1] && G[x - 1][y + 1] === -1)
-    {
-        neighbours.push([x - 1, y + 1]);
-    }
-    if(x < n - 1 && y > 0 && !matrix[x + 1][y - 1] && G[x + 1][y - 1] === -1)
-    {
-        neighbours.push([x + 1, y - 1]);
-    }
+    // if(x > 0 && y > 0 && !matrix[x - 1][y - 1] && G[x - 1][y - 1] === -1)
+    // {
+    //     neighbours.push([x - 1, y - 1]);
+    // }
+    // if(x < n - 1 && y < n - 1 && !matrix[x + 1][y + 1] && G[x + 1][y + 1] === -1)
+    // {
+    //     neighbours.push([x + 1, y + 1]);
+    // }
+    // if(x > 0 && y < n - 1 && !matrix[x - 1][y + 1] && G[x - 1][y + 1] === -1)
+    // {
+    //     neighbours.push([x - 1, y + 1]);
+    // }
+    // if(x < n - 1 && y > 0 && !matrix[x + 1][y - 1] && G[x + 1][y - 1] === -1)
+    // {
+    //     neighbours.push([x + 1, y - 1]);
+    // }
     return neighbours;
 }
 
 async function wait(c) {
+    time = 200 - document.getElementById("Slider").value;
     if (c)
     {
-        return new Promise(resolve => setTimeout(resolve, 100));
+        return new Promise(resolve => setTimeout(resolve, time));
     }
-    return new Promise(resolve => setTimeout(resolve, 10));
+    return new Promise(resolve => setTimeout(resolve, 5));
 }
 
 async function Astar(start, end)
@@ -362,12 +368,12 @@ async function Astar(start, end)
         {
             let neigbor = neighbours[i];
 
-            context.fillStyle = "orange";
-            context.fillRect(neigbor[1] * cube + 1, neigbor[0] * cube + 1, cube - 1, cube - 1);
+            context.fillStyle = "#f5e1ab";
+            context.fillRect(neigbor[1] * cube + 1, neigbor[0] * cube + 1, cube - 2, cube - 2);
             await wait(1);
 
-            context.fillStyle = "#cdcdcd";
-            context.fillRect(neigbor[1] * cube + 1, neigbor[0] * cube + 1, cube - 1, cube - 1);
+            context.fillStyle = "#e3d3f0";
+            context.fillRect(neigbor[1] * cube + 1, neigbor[0] * cube + 1, cube - 2, cube - 2);
 
             let nX = neigbor[0];
             let nY = neigbor[1];
@@ -383,19 +389,19 @@ async function Astar(start, end)
             }
         }
     }
-    context.fillStyle = "red";
-    context.fillRect(end[1] * cube, end[0] * cube, cube - 1, cube - 1);
+    context.fillStyle = "#d21f3c";
+    context.fillRect(end[1] * cube + 1, end[0] * cube + 1, cube - 2, cube - 2);
     if (JSON.stringify(parents[end[0]][end[1]]) !== JSON.stringify([-1, -1]))
     {
         let cell = parents[end[0]][end[1]];
         while (cell[0] !== -1 && cell[1] !== -1)
         {
-            context.fillStyle = "green";
-            context.fillRect(cell[1] * cube + 1, cell[0] * cube + 1, cube - 1, cube - 1);
+            context.fillStyle = "#822cd8";
+            context.fillRect(cell[1] * cube + 1, cell[0] * cube + 1, cube - 2, cube - 2);
             cell = parents[cell[0]][cell[1]];
         }
-        context.fillStyle = "blue";
-        context.fillRect(start[1] * cube, start[0] * cube, cube - 1, cube - 1);
+        context.fillStyle = "#81d8d0";
+        context.fillRect(start[1] * cube + 1, start[0] * cube + 1, cube - 2, cube - 2);
     }
     else
     {
