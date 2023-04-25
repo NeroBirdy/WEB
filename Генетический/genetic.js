@@ -1,5 +1,6 @@
 window.onload = function () //что бы картинки и мб анимации закинуть на всяки пожарный пусть будет
 {
+    let end = 500;
     let gens = [];
     const canvas = document.getElementById('myCanvas');
     const c = canvas.getContext('2d');
@@ -184,8 +185,14 @@ window.onload = function () //что бы картинки и мб анимац�
 
             async function find_put() 
             {
-                for (let i = 0; i < Math.pow(gens.length, 4); i++) 
+                end = 500;
+                for (let i = 0; i < 100000; i++) 
                 {
+                    if (end === 0)
+                    {
+                        break;
+                        console.log(best_put);
+                    }
                     c.beginPath();
                     cross(pop)
                     for (let j = 0; j < pop.length; j++) 
@@ -208,7 +215,12 @@ window.onload = function () //что бы картинки и мб анимац�
                         c.closePath();
                         c.strokeStyle = '#ea2121'
                         c.stroke();
-                        await new Promise(v => setTimeout(v, 100)); //скорость
+                        await new Promise(v => setTimeout(v, 10)); //скорость
+                        end = 500;
+                    }
+                    if (i % 100 === 0)
+                    {
+                        end -= 100;
                     }
                 }
             }
