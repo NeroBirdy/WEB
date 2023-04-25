@@ -116,7 +116,7 @@ function KMeans()
         for (let j = 0; j < clasters[i].length; j++)
         {
             context.beginPath();
-            context.arc((clasters[i][j][0] + centers[i][0]) / 2, (clasters[i][j][1] + centers[i][1]) / 2, 5, 0, 2 * Math.PI);
+            context.arc((clasters[i][j][0]), (clasters[i][j][1]) , 5, 0, 2 * Math.PI);
             context.fillStyle = colors[i];
             context.fill();
         } 
