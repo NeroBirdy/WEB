@@ -41,7 +41,7 @@ input::-webkit-inner-spin-button {
 }
 
 .header {
-  background-image: url(image/fon.jpg);
+  background-image: url(../image/fon.jpg);
   background-size: no-repeat;
   background-position: center;
   background-size: cover;
@@ -97,7 +97,7 @@ input::-webkit-inner-spin-button {
 .back_button {
   width: 100%;
   height: 100%;
-  background-image: url(image/Arrow.png);
+  background-image: url(../image/Arrow.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 60px 45px;
@@ -168,7 +168,7 @@ input::-webkit-inner-spin-button {
   width: 38px;
   border: solid 2px;
   background-color: white;
-  background-image: url(image/check_mark.png);
+  background-image: url(../image/check_mark.png);
   background-size: 38px 38px;
   background-position: center;
 }

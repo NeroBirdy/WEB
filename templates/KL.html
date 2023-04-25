@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="KL.css" />
+    <!-- <link rel="stylesheet" href="KL.css" /> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/KL.css') }}">
     <title>Плоскость для точек</title>
   </head>
   <body>
     <button onclick="addDot()">Добавить точку</button> 
     <canvas id="myCanvas" width="1200" height="900"></canvas>
-    <script src = "KL.js"></script>
+    <script src = "{{ url_for('static', filename='scripts/KL.js') }}"></script>
   </body>
 </html>
