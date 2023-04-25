@@ -1,0 +1,58 @@
+html {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	width: 100%;
+	margin: 0;
+}
+
+.area {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-image: url(../image/fon.jpg);
+  background-size: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 25%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.title_area {
+	width: 44%;
+}
+
+.team_img_area {
+	width: 50%;
+	height: 100px;
+	display: flex;
+	align-items: center;
+}
+
+.title {
+	font-family: 'Inter';
+	font-style: ;
+	font-weight: 900;
+	font-size: 70px;
+	line-height: 90px;
+	margin: 0;
+	margin-left: 6%;
+}
+
+.team_img {
+	background-image: url(../image/time.png);
+	background-repeat: no-repeat;
+	background-size: 100px 100px;
+	width: 100%;
+	height: 100%;
+}
