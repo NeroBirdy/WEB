@@ -5,19 +5,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="genetic.js"></script>
     <link rel="stylesheet" href="styles.css">
     <title>Генетический</title>
 </head>
 <body>
     <div class="fon_div">
-        <button id="clear" class="create-map">удали</button>
+        <button id="clear" onclick = "location.reload()"class="create-map">удали</button>
         <div class="fon" id="fon">
             <canvas class="canvas" id="myCanvas" width="600" height="600"></canvas>
         </div>
         <div class="fon_buttons">
             <button id="place_point" class="create-map">тык</button>
-            <button id="create_put" class="create-map">ищи</button>
+            <button  onclick = "Genetic()" id="create_put" class="create-map">ищи</button>
+            <script src="genetic.js"></script>
         </div>
     </div>
 </body>

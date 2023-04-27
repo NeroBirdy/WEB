@@ -20,7 +20,6 @@ centers.push([x, y]);
 context.fillStyle = color;
 context.fillRect(x,y, 20,20);
 context.fillStyle = "black";
-context.stroke();
 }
 
 canvas.addEventListener("click", function(event) {

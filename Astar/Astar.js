@@ -235,7 +235,7 @@ function Click(event)
             }
 
             context.fillStyle="#d21f3c";
-            context.fillRect(cellX + 0.5, cellY + 0.5, cube - 2, cube - 2);
+            context.fillRect(cellX + 1, cellY + 1, cube - 2, cube - 2);
             end[0] = j;
             end[1] = i;
             break;
