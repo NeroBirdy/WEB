@@ -5,8 +5,10 @@
     <title>Плоскость для точек</title>
   </head>
   <body>
-    <button onclick = "addDot()">Добавить центнр кластера</button> 
-    <button onclick = "KMeans()">Запустить алгоритм</button>
+    <label for="countcenters">Количество кластеров(для K-means)</label>
+    <input id = "countcenters" type="number" min = 1>
+    <button onclick = "KMeans()">Запустить алгоритм K-Means</button>
+    <button onclick = "DBSCAN(dots,20, 2)">Запустить алгоритм DBSCAN</button>
     <button onclick = "CleareMap()">Очистить карту</button>
     <canvas id="myCanvas" width="1200" height="900"></canvas>
     <script src = "KL.js"></script>

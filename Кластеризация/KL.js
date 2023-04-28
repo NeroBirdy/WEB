@@ -1,32 +1,53 @@
 let canvas = document.getElementById("myCanvas");
 let context = canvas.getContext("2d");
 
+let visited = [];
 let clasters = [];
 let centers = [];
 let dots = [];
-let colors = [];
+let colors = [
+  "red",
+  "yellow",
+  "lime",
+  "white",
+  "blue",
+  "orange",
+  "purple",
+  "pink",
+  "SandyBrown",
+  "DarkSlateGray",
+  "Navy",
+  "DarkTurquoise",
+  "Plum",
+  "Tomato",
+  "Salmon",
+  "Indigo",
+  "Olive",
+  "Maroon",
+  "DimGray",
+  "Beige",
+  "Tan"
+];
 
 context.fillStyle = "#dbdbdb";
 context.fillRect(0, 0, canvas.width, canvas.height);
 
 
-function addDot() {
+function addCenter() {
+let ind = Math.floor(Math.random() * dots.length);
+while (visited.includes(ind))
+{
+  ind = Math.floor(Math.random() * dots.length);
+}
+centers.push([dots[ind][0], dots[ind][1]]);
 
-let x = Math.floor(Math.random() * canvas.width);
-let y = Math.floor(Math.random() * canvas.height);
-let color = "#" + Math.floor(Math.random()* 16777215).toString(16);
-colors.push(color);
-centers.push([x, y]);
-context.fillStyle = color;
-context.fillRect(x,y, 20,20);
-context.fillStyle = "black";
 }
 
 canvas.addEventListener("click", function(event) {
 
 let x = event.offsetX;
 let y = event.offsetY;
-dots.push([x,y]);
+dots.push([x, y]);
 
 context.beginPath();
 context.arc(x, y, 5, 0, 2 * Math.PI);
@@ -90,6 +111,12 @@ function recontrucrion(clasters)
 
 function KMeans()
 {
+  centers = []; 
+  visited = [];
+  for (let i = 0; i < document.getElementById("countcenters").value; i++)
+  {
+    addCenter();
+  }
     let count = 0;
     clasters = assignClusters(dots, centers);
     let newCenters = recontrucrion(clasters);
@@ -102,7 +129,7 @@ function KMeans()
     }
     console.log(count)
     context.beginPath();
-    context.fillStyle = "#cdcdcd";
+    context.fillStyle = "#dbdbdb";
     context.fillRect(0, 0, canvas.width, canvas.height);
     for(let i = 0; i < centers.length; i++)
     {
@@ -131,5 +158,78 @@ function CleareMap()
     dots = [];
     centers = [];
     clasters = [];
-    colors = [];
+}
+
+
+function DBSCAN(dots, eps, minPts) {
+  let clusterIdx = 0;
+  let visited = new Set();
+  let cluster = new Array(dots.length);
+  for (let i = 0; i < dots.length; i++) {
+    cluster[i] = -1;
+  }
+
+  function regionQuery(curDot) {
+    let neighbors = [];
+    for (let i = 0; i < dots.length; i++) {
+      if (i !== curDot && get_distance(dots[curDot], dots[i]) <= eps) {
+        neighbors.push(i);
+      }
+    }
+    return neighbors;
+  }
+
+  function expandCluster(curDot, curCluster) {
+    cluster[curDot] = curCluster;
+    let neighbors = regionQuery(curDot);
+    for (let i = 0; i < neighbors.length; i++) {
+      let nextDot = neighbors[i];
+      if (!visited.has(nextDot)) {
+        visited.add(nextDot);
+        let nextNeighbors = regionQuery(nextDot);
+        if (nextNeighbors.length >= minPts) {
+          neighbors = neighbors.concat(nextNeighbors);
+        }
+      }
+      if (cluster[nextDot] === -1) {
+        cluster[nextDot] = curCluster;
+      }
+    }
+  }
+
+  for (let i = 0; i < dots.length; i++) {
+    if (!visited.has(i)) {
+      visited.add(i);
+      let neighbors = regionQuery(i);
+      if (neighbors.length < minPts) {
+        cluster[i] = -1;
+      } else {
+        cluster[i] = clusterIdx;
+        expandCluster(i, clusterIdx);
+        clusterIdx++;
+      }
+    }
+  }
+
+
+  context.clearRect(0, 0, 1200, 900);
+  context.fillStyle = "#dbdbdb";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  for(let i = 0; i < cluster.length; i++)
+  {
+    if (cluster[i] !== -1)
+    {
+      context.beginPath();
+      context.arc(dots[i][0], dots[i][1], 5, 0, 2 * Math.PI);
+      context.fillStyle = colors[cluster[i]];
+      context.fill();
+    }
+    else
+    {
+      context.beginPath();
+      context.arc(dots[i][0], dots[i][1], 5, 0, 2 * Math.PI);
+      context.fillStyle = "black";
+      context.fill();
+    }
+  }
 }
