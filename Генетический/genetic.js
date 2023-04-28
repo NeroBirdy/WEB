@@ -84,62 +84,64 @@ canvas.addEventListener("click", function(event) {
 
     async function Genetic()
     {
-        fl = true;
-        for(let k = 0; k < 1000000; k++)
+        if (finish_algoritm === false)
         {
-            let dist = [];
-            if (!pathes.length)
+            fl = true;
+            for(let k = 0; k < 1000000; k++)
             {
-                getFirtsPopulation();
-            }
-            for (let i = 0; i < 1000; i++)
-            {
-                let FirstFather = Math.floor(Math.random() * 1000);
-                let SecondFather = FirstFather;
-
-                while(FirstFather === SecondFather)
+                let dist = [];
+                if (!pathes.length)
                 {
-                    SecondFather = Math.floor(Math.random() * 1000);
+                    getFirtsPopulation();
                 }
-                pathes.push(cross(pathes[FirstFather], pathes[SecondFather]));
-            }
-
-            for (let i = 0; i < 2000; i++)
-            {
-                dist.push(getDistance(pathes[i]));
-            }
-
-            Sort(dist);
-
-            for (let i = 0; i < 1000; i++)
-            {
-                pathes.pop();
-            }
-            await new Promise(v => setTimeout(v, 10)); 
-            if (JSON.stringify(best_path) === JSON.stringify(pathes[0]))
-            {
-                count++;
-                if (count === 20)
+                for (let i = 0; i < 1000; i++)
                 {
-                    break;
+                    let FirstFather = Math.floor(Math.random() * 1000);
+                    let SecondFather = FirstFather;
+
+                    while(FirstFather === SecondFather)
+                    {
+                        SecondFather = Math.floor(Math.random() * 1000);
+                    }
+                    pathes.push(cross(pathes[FirstFather], pathes[SecondFather]));
                 }
+
+                for (let i = 0; i < 2000; i++)
+                {
+                    dist.push(getDistance(pathes[i]));
+                }
+
+                Sort(dist);
+
+                for (let i = 0; i < 1000; i++)
+                {
+                    pathes.pop();
+                }
+                await new Promise(v => setTimeout(v, 10)); 
+                if (JSON.stringify(best_path) === JSON.stringify(pathes[0]))
+                {
+                    count++;
+                    if (count === 20)
+                    {
+                        break;
+                    }
+                }
+                if (JSON.stringify(best_path) !== JSON.stringify(pathes[0]))
+                {
+                    count = 0;
+                    best_path = pathes[0].slice();
+                }
+                Draw(pathes[0]);
             }
-            if (JSON.stringify(best_path) !== JSON.stringify(pathes[0]))
-            {
-                count = 0;
-                best_path = pathes[0].slice();
-            }
-            Draw(pathes[0]);
+            console.log("Готово")
+            finish_algoritm = true;
+            vertexes = [];
+            pathes = [];
+            best_path = [];
+            best_length = 100000000000;
+            count = 0;
+            fl = false;
         }
-        console.log("Готово")
-        finish_algoritm = true;
-        vertexes = [];
-        pathes = [];
-        best_path = [];
-        best_length = 100000000000;
-        count = 0;
-        fl = false;
-        
     }
 
     function Sort(distances)
