@@ -4,12 +4,19 @@ let best_path = [];
 let best_length = 100000000000;
 let count = 0;
 let fl = false;
+let finish_algoritm = false;
 
 
 let canvas = document.getElementById("myCanvas");
 let c = canvas.getContext("2d");
 
 canvas.addEventListener("click", function(event) {
+
+    if (finish_algoritm)
+    {
+        c.clearRect(0, 0, canvas.width, canvas.height);
+        finish_algoritm = false;
+    }
 
     if (!fl)
     {
@@ -125,6 +132,13 @@ canvas.addEventListener("click", function(event) {
             Draw(pathes[0]);
         }
         console.log("Готово")
+        finish_algoritm = true;
+        vertexes = [];
+        pathes = [];
+        best_path = [];
+        best_length = 100000000000;
+        count = 0;
+        fl = false;
         
     }
 
