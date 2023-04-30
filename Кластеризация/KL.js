@@ -233,3 +233,71 @@ function DBSCAN(dots, eps, minPts) {
     }
   }
 }
+
+function hierarchicalClustering(data) {
+  let k = document.getElementById("countcenters").value;
+  let clusters = [];
+  for (let i = 0; i < data.length; i++) {
+    clusters.push([data[i]]);
+  }
+
+  while (clusters.length > k) {
+    let minDist = Number.POSITIVE_INFINITY;
+    let merge = [-1, -1];
+
+    for (let i = 0; i < clusters.length - 1; i++) {
+      for (let j = i + 1; j < clusters.length; j++) {
+        let dist = euclideanDistance(clusters[i], clusters[j]);
+        if (dist < minDist) {
+          minDist = dist;
+          merge = [i, j];
+        }
+      }
+    }
+
+    clusters[merge[0]] = clusters[merge[0]].concat(clusters[merge[1]]);
+    clusters.splice(merge[1], 1);
+  }
+
+  context.clearRect(0, 0, 1200, 900);
+  context.fillStyle = "#dbdbdb";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < clusters.length; i++)
+  {
+    if (clusters[i].length)
+    {
+      for (let j = 0; j < clusters[i].length; j++)
+    {
+      let x = clusters[i][j][0];
+      let y = clusters[i][j][1];
+      context.beginPath();
+      context.arc(x, y, 5, 0, 2 * Math.PI);
+      context.fillStyle = colors[i];
+      context.fill();
+    }
+    }
+
+  }
+}
+
+function euclideanDistance(cluster1, cluster2) {
+  let dist = Number.POSITIVE_INFINITY;
+  for (let i = 0; i < cluster1.length; i++) {
+    for (let j = 0; j < cluster2.length; j++) {
+      let d = get_distance(cluster1[i], cluster2[j]);
+      if (d < dist) {
+        dist = d;
+      }
+    }
+  }
+  return dist;
+}
+
+// function distance(point1, point2) {
+//   let sum = 0;
+//   for (let i = 0; i < point1.length; i++) {
+//     let diff = point1[i] - point2[i];
+//     sum += diff * diff;
+//   }
+//   return Math.sqrt(sum);
+// }

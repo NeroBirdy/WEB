@@ -17,9 +17,9 @@ function createMap()
 {
     n = document.getElementById("input").value;
     matrix = getMatrix(0);
-    context.clearRect(0, 0, 700, 700);
+    context.clearRect(0, 0, 800, 800);
     context.beginPath();
-    cube = 700 / n;
+    cube = 800 / n;
     let x = 0;
     let y = 0;
     for (let i = 0; i <= n; i++)

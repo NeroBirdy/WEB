@@ -3,7 +3,7 @@
     width: 800px;
     height: 800px;
     margin-top: 10px;
-    background: rgb(135, 205, 227);
+    /* background: rgb(215, 174, 228); */
     position: relative;
 }
 .fon_div 
@@ -17,7 +17,9 @@
 }
 .canvas 
 {
+    border: 2px solid #000000;
     position: absolute;
+    background: rgb(215, 174, 228);
 }
 #clear 
 {
@@ -27,6 +29,7 @@
     margin-left: 300px;
     margin-top: 50px;
 }
+
 
 
 

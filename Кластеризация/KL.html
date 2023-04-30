@@ -8,9 +8,10 @@
     <label for="countcenters">Количество кластеров(для K-means)</label>
     <input id = "countcenters" type="number" min = 1>
     <button onclick = "KMeans()">Запустить алгоритм K-Means</button>
-    <button onclick = "DBSCAN(dots,20, 2)">Запустить алгоритм DBSCAN</button>
+    <button onclick = "DBSCAN(dots, 20, 2)">Запустить алгоритм DBSCAN</button>
+    <button onclick = "hierarchicalClustering(dots)">Запустить алгоритм hierarchical</button>
     <button onclick = "CleareMap()">Очистить карту</button>
-    <canvas id="myCanvas" width="1200" height="900"></canvas>
+    <canvas id="myCanvas" width="600" height="600"></canvas>
     <script src = "KL.js"></script>
   </body>
 </html>

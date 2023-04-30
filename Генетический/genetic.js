@@ -7,10 +7,26 @@ let end = false;
 let finish = false;
 
 
+
+let button1 = document.getElementById("Slider1");
+let button2 = document.getElementById("Slider2");
+
+button1.addEventListener("input", function()
+{
+    Fathers = parseInt(button1.value);
+})
+button2.addEventListener("input", function()
+{
+    Childs = parseInt(button2.value);
+})
+
+
+let Fathers = 2400;
+let Childs = 2400;
+let time = 10;
+
 let canvas = document.getElementById("myCanvas");
 let c = canvas.getContext("2d");
-
-
 
 canvas.addEventListener("click", function(event) {
 
@@ -38,6 +54,19 @@ canvas.addEventListener("click", function(event) {
     }
 });
     
+function DeletePath()
+{
+    c.clearRect(0, 0, 800, 800);
+    for (let i = 0; i < vertexes.length; i++)
+    {
+        c.beginPath();
+        c.arc(vertexes[i].x, vertexes[i].y, 6, 0, 5 * Math.PI);
+        c.fillStyle = "black";
+        c.fill();
+    }
+}
+
+
 function Draw(path)
 {
     if (finish)
@@ -71,7 +100,7 @@ function Draw(path)
 
 function getFirtsPopulation()
 {
-    for (let i = 0; i < 1000; i++)
+    for (let i = 0; i < Fathers; i++)
     {
         let path = [];
         for(let j = 0; j < vertexes.length; j++)
@@ -107,35 +136,38 @@ async function Genetic()
         {
             getFirtsPopulation();
         }
-        for (let i = 0; i < 1000; i++)
+        for (let i = 0; i < Childs; i++)
         {
-            let FirstFather = Math.floor(Math.random() * 1000);
-            let SecondFather = Math.floor(Math.random() * 1000);
+            let FirstFather = Math.floor(Math.random() * Fathers);
+            let SecondFather = Math.floor(Math.random() * Fathers);
 
             while(FirstFather === SecondFather)
             {
-                SecondFather = Math.floor(Math.random() * 1000);
+                SecondFather = Math.floor(Math.random() * Fathers);
             }
             pathes.push(cross(pathes[FirstFather], pathes[SecondFather]));
         }
 
-        for (let i = 0; i < 2000; i++)
+        for (let i = 0; i < Fathers + Childs; i++)
         {
             dist.push(getDistance(pathes[i]));
         }
 
         Sort(dist);
 
-        for (let i = 0; i < 1000; i++)
+        for (let i = 0; i < Childs; i++)
         {
             pathes.pop();
         }
-        await new Promise(v => setTimeout(v, 10)); 
+        await new Promise(v => setTimeout(v, time)); 
         if (JSON.stringify(best_path) === JSON.stringify(pathes[0]))
         {
             count++;
             if (count === 20)
             {
+                console.log(k);
+                console.log("Длина пути: " + dist[0])
+
                 break;
             }
         }
@@ -153,7 +185,6 @@ async function Genetic()
     end = false;
     pathes = [];
     best_path = [];
-
 }
 
 function Sort(distances)
