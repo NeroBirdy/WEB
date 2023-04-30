@@ -1,0 +1,31 @@
+.fon
+{
+    width: 800px;
+    height: 800px;
+    margin-top: 10px;
+    /* background: rgb(215, 174, 228); */
+    position: relative;
+}
+.fon_div 
+{
+    margin: 0 auto;
+    width: 700px;
+}
+.fon_buttons 
+{
+    margin-top: 20px;
+}
+.canvas 
+{
+    border: 2px solid #000000;
+    position: absolute;
+    background: rgb(215, 174, 228);
+}
+#clear 
+{
+    width: 100px;
+    background: rgb(221, 93, 93);
+    color: rgb(14, 14, 14);
+    margin-left: 300px;
+    margin-top: 50px;
+}

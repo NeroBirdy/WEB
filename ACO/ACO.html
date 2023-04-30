@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="ACO.css">
+    <title>Генетический</title>
+</head>
+<body>
+    <div class="fon_div">
+        <button id="clear" onclick = "location.reload()"class="create-map">Очистить поле</button>
+        <div class="fon" id="fon">
+            <canvas class="canvas" id="myCanvas" width="800" height="800"></canvas>
+        </div>
+        <div class="fon_buttons">
+            <button  onclick = "ACO()" id="create_put" class="create-map">ищи</button>
+            <script src="ACO.js"></script>
+        </div>
+    </div>
+</body>
+</html>
