@@ -3,7 +3,7 @@ let c = canvas.getContext("2d");
 
 canvas.addEventListener("click", function(event) {
 
-    if (!end)
+    if (!end && count_cityes < 50)
     {
         if (vertexes.length)
         {
@@ -24,10 +24,15 @@ canvas.addEventListener("click", function(event) {
         c.arc(x, y, 6, 0, 5 * Math.PI);
         c.fillStyle = "black";
         c.fill();
+        count_cityes++;
+    }
+    if (count_cityes == 50 )
+    {
+        alert("Столько городов будет достаточно")
     }
 });
 
-
+let count_cityes = 0;
 let vertexes = [];
 let distances = [];
 let pheromones = [];
@@ -55,8 +60,9 @@ async function ACO()
     let best_length = Infinity;
 
     distances = getDist();
+    pheromones = [];
     let ants = [];
-    for(let i = 0; i < 50; i++)
+    for(let i = 0; i < 100; i++)
     {
         ants.push(new Ant);
     }
@@ -91,10 +97,10 @@ async function ACO()
 
         updatePheromones(ants);
 
-        await new Promise(resolve => setTimeout(resolve, 10));
+        await new Promise(resolve => setTimeout(resolve, 20));
 
         count++;
-        if (count === 50)
+        if (count === 70)
         {
             finish = true;
             Draw(best_path);
@@ -102,6 +108,7 @@ async function ACO()
             break;
         }
     }
+    
     end = false;
     finish = false;
 }
@@ -142,7 +149,7 @@ function getFirstPheromones()
 
 function getAnts(ants)
 {
-    for(let i = 0; i < 50; i++)
+    for(let i = 0; i < 100; i++)
     {
         let start = Math.floor(Math.random() * vertexes.length);
         ants[i].path = [];
@@ -184,6 +191,7 @@ function selectNext(ant)
             return probabilities[i].vertex;
         }
     }
+    return probabilities[0].vertex;
 }
 
 function getPath(path)
@@ -222,6 +230,8 @@ function updatePheromones(ants)
     }
 
 }
+
+
 
     
 function DeletePath()
