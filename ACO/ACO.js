@@ -32,13 +32,14 @@ canvas.addEventListener("click", function(event) {
     }
 });
 
+let count_ant = 0;
 let count_cityes = 0;
 let vertexes = [];
 let distances = [];
 let pheromones = [];
 
-let alpha = 3;
-let beta = 2;
+let alpha = 2;
+let beta = 3;
 let end = false;
 let finish = false;
 
@@ -68,7 +69,7 @@ async function ACO()
     }
     pheromones = getFirstPheromones();
 
-    for (let i = 0; i < 10000; i++)
+    for (let i = 0; i < 1000000; i++)
     {
         ants = getAnts(ants);
 
@@ -100,7 +101,7 @@ async function ACO()
         await new Promise(resolve => setTimeout(resolve, 20));
 
         count++;
-        if (count === 70)
+        if (count === 100)
         {
             finish = true;
             Draw(best_path);

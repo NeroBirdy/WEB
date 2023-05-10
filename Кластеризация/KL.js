@@ -177,9 +177,9 @@ function CleareMap()
 
 
 function DBSCAN(dots, eps, minPts) {
-  if (dots.length < 1)
+  if (dots.length < 2)
   {
-    alert("Надо бы поставить хоть одну точку");
+    alert("Надо бы поставить хотя бы две точки");
     return;
   }
 
