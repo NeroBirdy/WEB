@@ -399,6 +399,7 @@ async function Astar(start, end)
             context.fillStyle = "#822cd8";
             context.fillRect(cell[1] * cube + 1, cell[0] * cube + 1, cube - 2, cube - 2);
             cell = parents[cell[0]][cell[1]];
+            await wait(1);
         }
         context.fillStyle = "#81d8d0";
         context.fillRect(start[1] * cube + 1, start[0] * cube + 1, cube - 2, cube - 2);
