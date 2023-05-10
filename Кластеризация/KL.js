@@ -113,6 +113,21 @@ function KMeans()
 {
   centers = []; 
   visited = [];
+  if (dots.length < document.getElementById("countcenters").value)
+  {
+    alert("Слишком мало точек для стольких кластеров");
+    return;
+  }
+  if (document.getElementById("countcenters").value < 2)
+  {
+    alert("Нужно как минимум 2 кластера");
+    return;
+  }
+  if (document.getElementById("countcenters").value > 21)
+  {
+    alert("Слишком много кластеров, максимум 21");
+    return;
+  }
   for (let i = 0; i < document.getElementById("countcenters").value; i++)
   {
     addCenter();
@@ -162,6 +177,12 @@ function CleareMap()
 
 
 function DBSCAN(dots, eps, minPts) {
+  if (dots.length < 1)
+  {
+    alert("Надо бы поставить хоть одну точку");
+    return;
+  }
+
   let clusterIdx = 0;
   let visited = new Set();
   let cluster = new Array(dots.length);
@@ -235,6 +256,21 @@ function DBSCAN(dots, eps, minPts) {
 }
 
 function hierarchicalClustering(data) {
+  if (dots.length < document.getElementById("countcenters").value)
+  {
+    alert("Слишком мало точек для стольких кластеров");
+    return;
+  }
+  if (document.getElementById("countcenters").value < 2)
+  {
+    alert("Нужно как минимум 2 кластера");
+    return;
+  }
+  if (document.getElementById("countcenters").value > 21)
+  {
+    alert("Слишком много кластеров, максимум 21");
+    return;
+  }
   let k = document.getElementById("countcenters").value;
   let clusters = [];
   for (let i = 0; i < data.length; i++) {
@@ -293,11 +329,3 @@ function euclideanDistance(cluster1, cluster2) {
   return dist;
 }
 
-// function distance(point1, point2) {
-//   let sum = 0;
-//   for (let i = 0; i < point1.length; i++) {
-//     let diff = point1[i] - point2[i];
-//     sum += diff * diff;
-//   }
-//   return Math.sqrt(sum);
-// }
