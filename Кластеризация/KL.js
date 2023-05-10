@@ -113,11 +113,6 @@ function KMeans()
 {
   centers = []; 
   visited = [];
-  if (dots.length < document.getElementById("countcenters").value)
-  {
-    alert("Слишком мало точек для стольких кластеров");
-    return;
-  }
   if (document.getElementById("countcenters").value < 2)
   {
     alert("Нужно как минимум 2 кластера");
@@ -126,6 +121,11 @@ function KMeans()
   if (document.getElementById("countcenters").value > 21)
   {
     alert("Слишком много кластеров, максимум 21");
+    return;
+  }
+  if (dots.length < document.getElementById("countcenters").value)
+  {
+    alert("Слишком мало точек для стольких кластеров");
     return;
   }
   for (let i = 0; i < document.getElementById("countcenters").value; i++)
@@ -256,11 +256,6 @@ function DBSCAN(dots, eps, minPts) {
 }
 
 function hierarchicalClustering(data) {
-  if (dots.length < document.getElementById("countcenters").value)
-  {
-    alert("Слишком мало точек для стольких кластеров");
-    return;
-  }
   if (document.getElementById("countcenters").value < 2)
   {
     alert("Нужно как минимум 2 кластера");
@@ -269,6 +264,11 @@ function hierarchicalClustering(data) {
   if (document.getElementById("countcenters").value > 21)
   {
     alert("Слишком много кластеров, максимум 21");
+    return;
+  }
+  if (dots.length < document.getElementById("countcenters").value)
+  {
+    alert("Слишком мало точек для стольких кластеров");
     return;
   }
   let k = document.getElementById("countcenters").value;
