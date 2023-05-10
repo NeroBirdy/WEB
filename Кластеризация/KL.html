@@ -1,17 +1,57 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="KL.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Плоскость для точек</title>
+    <link rel="stylesheet" href="KL.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
   </head>
   <body>
-    <label for="countcenters">Количество кластеров(для K-means)</label>
-    <input id = "countcenters" type="number" min = 1>
-    <button onclick = "KMeans()">Запустить алгоритм K-Means</button>
-    <button onclick = "DBSCAN(dots, 20, 2)">Запустить алгоритм DBSCAN</button>
-    <button onclick = "hierarchicalClustering(dots)">Запустить алгоритм hierarchical</button>
-    <button onclick = "CleareMap()">Очистить карту</button>
-    <canvas id="myCanvas" width="600" height="600"></canvas>
+    <div class="area">
+      <div class="header">
+          <div class="back_button_area">
+              <div class="back_button_fon">
+                  <div class="back_button"></div>
+              </div>
+              <div class="button_empty"></div>
+          </div>
+          <div class="title_area">
+              <p class="title">
+                  Кластеризация
+              </p>
+              <div class="title_empty"></div>
+          </div>
+          <div class="empty_rigth"></div>
+      </div>
+      <div class="input_area">
+        <div class="empty_area"></div>
+        <div class="canvas_area">
+          <canvas class="canvas" id="myCanvas" width="600" height="600"></canvas>
+        </div>
+        <div class="button_area">
+          <div class="up_button">
+            <div class="kmeans_area">
+              <button class="btn margin_btn" onclick = "KMeans()">Запустить алгоритм K-Means</button>
+              <div class="text_area">
+                <div class="text">
+                  <label class="label" for="countcenters">Количество кластеров</label>
+                  <input class="input" id ="countcenters" type="number" min = 1>
+                </div>
+              </div>
+            </div>
+            <div class="other_button">
+              <button class="btn" onclick = "DBSCAN(dots, 20, 2)">Запустить алгоритм DBSCAN</button>
+              <button class="btn" onclick = "hierarchicalClustering(dots)">Запустить алгоритм hierarchical</button>
+            </div>
+          </div>
+          <div class="clear_button">
+            <button class="btn margin_btn" onclick = "CleareMap()">Очистить карту</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src = "KL.js"></script>
   </body>
 </html>
