@@ -6,22 +6,54 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <title>Генетический</title>
 </head>
 <body>
-    <label class = "label" for="Slider1">Количество родителей:</label>
-    <input type="range" min="100" max="5000" value = "2400"id="Slider1" class = "slider">
-    <label class = "label" for="Slider2">Количество детей:</label>
-    <input type="range" min="100" max="5000" value = "2400" id="Slider2" class = "slider">
-    <div class="fon_div">
-        <button id="clear" onclick = "location.reload()"class="create-map">Очистить поле</button>
+  <div class="area">
+    <div class="header">
+      <div class="back_button_area">
+          <div class="back_button_fon">
+              <div class="back_button"></div>
+          </div>
+          <div class="button_empty"></div>
+      </div>
+      <div class="title_area">
+          <p class="title">
+              Генетический Алгоритм
+          </p>
+          <div class="title_empty"></div>
+      </div>
+      <div class="empty_rigth"></div>
+    </div>
+    <div class="table_area">
+      <div class="fon_div">
+        <div class="button_block">
+          <div class="fon_buttons">
+              <button onclick = "Genetic()" id="create_put" class="create-map">Найти путь</button>
+          </div>
+          <div class="sliders_area">
+            <div class="sliders_block">
+              <div class="first_slider">
+                <label class = "label" for="Slider1">Количество родителей:</label>
+                <input type="range" min="100" max="5000" value = "2400"id="Slider1" class = "slider">
+              </div>
+              <div class="second_slider">
+                <label class = "label" for="Slider2">Количество детей:</label>
+                <input type="range" min="100" max="5000" value = "2400" id="Slider2" class = "slider">
+              </div>
+            </div>
+          </div>
+          <div class="clear_button">
+            <button id="clear" onclick = "location.reload()"class="create-map">Очистить поле</button>
+          </div>
+        </div>
         <div class="fon" id="fon">
             <canvas class="canvas" id="myCanvas" width="800" height="800"></canvas>
         </div>
-        <div class="fon_buttons">
-            <button  onclick = "Genetic()" id="create_put" class="create-map">ищи</button>
-            <script src="genetic.js"></script>
-        </div>
+      </div>
     </div>
+  </div>
+  <script src="genetic.js"></script>
 </body>
 </html>
