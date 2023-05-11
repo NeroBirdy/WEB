@@ -203,4 +203,22 @@ body {
 .value_first, .value_second
 {
   min-width: 35px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  position: relative;
+  top: 2px;
+}
+
+.label {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.class {
+  display: flex;
+  flex-direction: row;
 }
