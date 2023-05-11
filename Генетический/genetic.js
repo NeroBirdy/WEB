@@ -14,10 +14,12 @@ let button2 = document.getElementById("Slider2");
 button1.addEventListener("input", function()
 {
     Fathers = parseInt(button1.value);
+    document.getElementById("value_first").innerHTML = Fathers;
 })
 button2.addEventListener("input", function()
 {
     Childs = parseInt(button2.value);
+    document.getElementById("value_second").innerHTML = Childs;
 })
 
 

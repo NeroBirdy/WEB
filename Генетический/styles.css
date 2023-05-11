@@ -199,3 +199,8 @@ body {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.value_first, .value_second
+{
+  min-width: 35px;
+}
