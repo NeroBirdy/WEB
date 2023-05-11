@@ -247,9 +247,9 @@ function Queue()
 {
     let Set = [];
 
-    this.add_to = function(cell)//Добавляем ячейку и расстояние 
+    this.addTo = function(cell)//Добавляем ячейку и расстояние 
     {
-        if (this.Is_Empty())
+        if (this.isEmpty())
             {
                 Set.push(cell);
             }
@@ -272,12 +272,12 @@ function Queue()
         }
     }
     
-    this.take_first = function()
+    this.takeFirst = function()
     {
         return Set.shift();
     }
 
-    this.Is_Empty = function()
+    this.isEmpty = function()
     {
         return Set.length === 0;
     }
@@ -354,10 +354,10 @@ async function Astar(start, end)
             parents[i][j][1] = -1;
         }
     }
-    queue.add_to([start, heuristic(start, end)]);
-    while(!queue.Is_Empty())
+    queue.addTo([start, heuristic(start, end)]);
+    while(!queue.isEmpty())
     {
-        let current = queue.take_first();
+        let current = queue.takeFirst();
         if (current[0][0] === end[0] && current[0][1] === end[1])
         {
             break;
@@ -385,7 +385,7 @@ async function Astar(start, end)
                 parents[nX][nY][0] = cX;
                 parents[nX][nY][1] = cY;
                 GScores[nX][nY] = GScores[cX][cY] + 1;
-                queue.add_to([neigbor, GScores[nX][nY] + heuristic(neigbor, end)]);
+                queue.addTo([neigbor, GScores[nX][nY] + heuristic(neigbor, end)]);
             }
         }
     }

@@ -56,7 +56,7 @@ context.fill();
 });
 
 
-function get_distance(cur, end)
+function getDistance(cur, end)
 {
     return Math.sqrt(Math.pow(end[0] - cur[0], 2) + Math.pow(end[1] - cur[1], 2));
 }
@@ -73,7 +73,7 @@ function assignClusters(dots, centers)
         let dist = [];
         for (let j = 0; j < centers.length; j++)
         {
-            let distance = get_distance(dots[i],centers[j]);
+            let distance = getDistance(dots[i],centers[j]);
             dist.push(distance);
         }
         let index = 0;
@@ -193,7 +193,7 @@ function DBSCAN(dots, eps, minPts) {
   function regionQuery(curDot) {
     let neighbors = [];
     for (let i = 0; i < dots.length; i++) {
-      if (i !== curDot && get_distance(dots[curDot], dots[i]) <= eps) {
+      if (i !== curDot && getDistance(dots[curDot], dots[i]) <= eps) {
         neighbors.push(i);
       }
     }
@@ -278,7 +278,7 @@ function hierarchicalClustering(data) {
   }
 
   while (clusters.length > k) {
-    let minDist = Number.POSITIVE_INFINITY;
+    let minDist = Infinity;
     let merge = [-1, -1];
 
     for (let i = 0; i < clusters.length - 1; i++) {
@@ -317,10 +317,10 @@ function hierarchicalClustering(data) {
 }
 
 function euclideanDistance(cluster1, cluster2) {
-  let dist = Number.POSITIVE_INFINITY;
+  let dist = Infinity;
   for (let i = 0; i < cluster1.length; i++) {
     for (let j = 0; j < cluster2.length; j++) {
-      let d = get_distance(cluster1[i], cluster2[j]);
+      let d = getDistance(cluster1[i], cluster2[j]);
       if (d < dist) {
         dist = d;
       }

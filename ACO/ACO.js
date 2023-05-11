@@ -3,7 +3,7 @@ let c = canvas.getContext("2d");
 
 canvas.addEventListener("click", function(event) {
 
-    if (!end && count_cityes < 50)
+    if (!end && countCities < 50)
     {
         if (vertexes.length)
         {
@@ -24,16 +24,16 @@ canvas.addEventListener("click", function(event) {
         c.arc(x, y, 6, 0, 5 * Math.PI);
         c.fillStyle = "black";
         c.fill();
-        count_cityes++;
+        countCities++;
     }
-    if (count_cityes == 50 )
+    if (countCities == 50 )
     {
         alert("Столько городов будет достаточно")
     }
 });
 
-let count_ant = 0;
-let count_cityes = 0;
+let countAnts = 0;
+let countCities = 0;
 let vertexes = [];
 let distances = [];
 let pheromones = [];
@@ -57,8 +57,8 @@ async function ACO()
 {
     end = true;
     let count = 0;
-    let best_path = [];
-    let best_length = Infinity;
+    let bestPath = [];
+    let bestLength = Infinity;
 
     distances = getDist();
     pheromones = [];
@@ -87,10 +87,10 @@ async function ACO()
         for (let k = 0; k < ants.length; k++)
         {
             ants[k].pathlength = getPath(ants[k].path);
-            if (ants[k].pathlength < best_length)
+            if (ants[k].pathlength < bestLength)
             {
-                best_length = ants[k].pathlength;
-                best_path = ants[k].path.slice();
+                bestLength = ants[k].pathlength;
+                bestPath = ants[k].path.slice();
                 count = 0;
                 Draw(ants[k].path);
             }
@@ -104,7 +104,7 @@ async function ACO()
         if (count === 100)
         {
             finish = true;
-            Draw(best_path);
+            Draw(bestPath);
             console.log("Готово");
             break;
         }
