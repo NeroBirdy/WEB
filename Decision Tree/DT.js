@@ -27,43 +27,38 @@ class Node
 //   ["Yes","Yes", "No", "No"],
 // ];
 
-// let dataset = [
-//   ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
-//   ["Sunny",     "Hot",         "High",     "Weak",   "No"],
-//   ["Sunny",     "Hot",         "High",     "Strong", "No"],
-//   ["Overcast",  "Hot",         "High",     "Weak",   "Yes"],
-//   ["Rain",      "Mild",        "High",     "Weak",   "Yes"],
-//   ["Rain",      "Cool",        "Normal",   "Weak",   "Yes"],
-//   ["Rain",      "Cool",        "Normal",   "Strong", "Yes"],
-//   ["Overcast",  "Cool",        "Normal",   "Strong", "No"],
-//   ["Sunny",     "Mild",        "High",     "Weak",   "Yes"],
-//   ["Sunny",     "Cool",        "Normal",   "Weak",   "No"],
-//   ["Rain",      "Mild",        "Normal",   "Weak",   "Yes"],
-//   ["Sunny",     "Mild",        "Normal",   "Strong", "Yes"],
-//   ["Overcast",  "Mild",        "High",     "Strong", "Yes"],
-//   ["Overcast",  "Hot",         "Normal",   "Weak",   "Yes"],
-//   ["Rain",      "Mild",        "High",     "Strong", "No"]
-// ];
-
 let dataset = [
-  ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
-  ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-  ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-  ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
-  ["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
-  ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-  ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-  ["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
-  ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
-  ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
-  ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
-  ["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
+  ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
+  ["Sunny",     "Hot",         "High",     "Weak",   "No"],
+  ["Sunny",     "Hot",         "High",     "Strong", "No"],
+  ["Overcast",  "Hot",         "High",     "Weak",   "Yes"],
+  ["Rain",      "Mild",        "High",     "Weak",   "Yes"],
+  ["Rain",      "Cool",        "Normal",   "Weak",   "Yes"],
+  ["Rain",      "Cool",        "Normal",   "Strong", "Yes"],
+  ["Overcast",  "Cool",        "Normal",   "Strong", "No"],
+  ["Sunny",     "Mild",        "High",     "Weak",   "Yes"],
+  ["Sunny",     "Cool",        "Normal",   "Weak",   "No"],
+  ["Rain",      "Mild",        "Normal",   "Weak",   "Yes"],
+  ["Sunny",     "Mild",        "Normal",   "Strong", "Yes"],
+  ["Overcast",  "Mild",        "High",     "Strong", "Yes"],
+  ["Overcast",  "Hot",         "Normal",   "Weak",   "Yes"],
+  ["Rain",      "Mild",        "High",     "Strong", "No"]
 ];
 
 let target = dataset[0][dataset[0].length - 1];
 let root = new Node("root", target, dataset);
 let visited = [target];
 let queue = [root];
+
+// getTree(root);
+// getTree(root.branches[0]);
+// getTree(root.branches[0].branches[0]);
+// getTree(root.branches[1]);
+// getTree(root.branches[1].branches[1]);
+// getTree(root.branches[2]);
+// getTree(root.branches[2].branches[2]);
+// console.log(visited);
+// console.log(root);
 
 init();
 
@@ -112,8 +107,8 @@ function getTree(node)
 
         IG += -(s_i/s) * entr;
     }
-    // if (IG === 0)
-    //   return;
+    if (IG === 0)
+      return;
     check.push({dict: dict, valueIG: IG, attr: attr});
   }
   for(let i of check)
@@ -193,11 +188,6 @@ function getColumn(data, attribute_index)
   }
   return column;
 }
-
-
-
-
-
 
 
 function parseCsv()
