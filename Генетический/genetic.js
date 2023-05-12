@@ -1,7 +1,6 @@
 let vertexes = [];
 let pathes = [];
-let best_path = [];
-let best_length = 100000000000;
+let bestPath = [];
 let count = 0;
 let end = false;
 let finish = false;
@@ -111,17 +110,17 @@ function getFirtsPopulation()
         }
         for(let j = 0; j < vertexes.length; j++)
         {
-            let ind_f = Math.floor(Math.random() * vertexes.length);
-            let ind_s = Math.floor(Math.random() * vertexes.length);
+            let indF = Math.floor(Math.random() * vertexes.length);
+            let indS = Math.floor(Math.random() * vertexes.length);
 
-            while(ind_f === ind_s)
+            while(indF === indS)
             {
-                ind_s = Math.floor(Math.random() * vertexes.length);
+                indS = Math.floor(Math.random() * vertexes.length);
             }
 
-            let temp = path[ind_f];
-            path[ind_f] = path[ind_s];
-            path[ind_s] = temp;
+            let temp = path[indF];
+            path[indF] = path[indS];
+            path[indS] = temp;
 
         }
         pathes.push(path);
@@ -162,7 +161,7 @@ async function Genetic()
             pathes.pop();
         }
         await new Promise(v => setTimeout(v, time)); 
-        if (JSON.stringify(best_path) === JSON.stringify(pathes[0]))
+        if (JSON.stringify(bestPath) === JSON.stringify(pathes[0]))
         {
             count++;
             if (count === 20)
@@ -173,10 +172,10 @@ async function Genetic()
                 break;
             }
         }
-        if (JSON.stringify(best_path) !== JSON.stringify(pathes[0]))
+        if (JSON.stringify(bestPath) !== JSON.stringify(pathes[0]))
         {
             count = 0;
-            best_path = pathes[0].slice();
+            bestPath = pathes[0].slice();
         }
         Draw(pathes[0]);
     }
@@ -186,7 +185,7 @@ async function Genetic()
     finish = false;
     end = false;
     pathes = [];
-    best_path = [];
+    bestPath = [];
 }
 
 function Sort(distances)
@@ -207,10 +206,10 @@ function Sort(distances)
 
 function cross(FirstFather, SecondFather)
 {
-    let break_line = Math.floor(Math.random() * FirstFather.length);
+    let breakLine = Math.floor(Math.random() * FirstFather.length);
     let gen = [];
 
-    for(let i = 0; i < break_line; i++)
+    for(let i = 0; i < breakLine; i++)
     {
         gen.push(FirstFather[i]);
     }

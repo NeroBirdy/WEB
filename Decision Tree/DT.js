@@ -27,23 +27,23 @@ class Node
 //   ["Yes","Yes", "No", "No"],
 // ];
 
-// let dataset = [
-//   ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
-//   ["Sunny",     "Hot",         "High",     "Weak",   "No"],
-//   ["Sunny",     "Hot",         "High",     "Strong", "No"],
-//   ["Overcast",  "Hot",         "High",     "Weak",   "Yes"],
-//   ["Rain",      "Mild",        "High",     "Weak",   "Yes"],
-//   ["Rain",      "Cool",        "Normal",   "Weak",   "Yes"],
-//   ["Rain",      "Cool",        "Normal",   "Strong", "Yes"],
-//   ["Overcast",  "Cool",        "Normal",   "Strong", "No"],
-//   ["Sunny",     "Mild",        "High",     "Weak",   "Yes"],
-//   ["Sunny",     "Cool",        "Normal",   "Weak",   "No"],
-//   ["Rain",      "Mild",        "Normal",   "Weak",   "Yes"],
-//   ["Sunny",     "Mild",        "Normal",   "Strong", "Yes"],
-//   ["Overcast",  "Mild",        "High",     "Strong", "Yes"],
-//   ["Overcast",  "Hot",         "Normal",   "Weak",   "Yes"],
-//   ["Rain",      "Mild",        "High",     "Strong", "No"]
-// ];
+let dataset = [
+  ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
+  ["Sunny",     "Hot",         "High",     "Weak",   "No"],
+  ["Sunny",     "Hot",         "High",     "Strong", "No"],
+  ["Overcast",  "Hot",         "High",     "Weak",   "Yes"],
+  ["Rain",      "Mild",        "High",     "Weak",   "Yes"],
+  ["Rain",      "Cool",        "Normal",   "Weak",   "Yes"],
+  ["Rain",      "Cool",        "Normal",   "Strong", "Yes"],
+  ["Overcast",  "Cool",        "Normal",   "Strong", "No"],
+  ["Sunny",     "Mild",        "High",     "Weak",   "Yes"],
+  ["Sunny",     "Cool",        "Normal",   "Weak",   "No"],
+  ["Rain",      "Mild",        "Normal",   "Weak",   "Yes"],
+  ["Sunny",     "Mild",        "Normal",   "Strong", "Yes"],
+  ["Overcast",  "Mild",        "High",     "Strong", "Yes"],
+  ["Overcast",  "Hot",         "Normal",   "Weak",   "Yes"],
+  ["Rain",      "Mild",        "High",     "Strong", "No"]
+];
 
 let target = dataset[0][dataset[0].length - 1];
 let root = new Node("root", target, dataset);
