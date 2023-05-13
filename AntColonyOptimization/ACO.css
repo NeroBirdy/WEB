@@ -149,3 +149,12 @@ body {
     margin-bottom: 2%;
     justify-content: space-around;
 }
+
+.count_ant {
+  display: flex;
+  align-items: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  min-width: 340px;
+}
