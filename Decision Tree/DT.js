@@ -27,6 +27,21 @@ class Node
 //   ["Yes","Yes", "No", "No"],
 // ];
 
+// let dataset = [
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+//   ["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+//   ["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
+// ];
+
 let dataset = [
   ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
   ["Sunny",     "Hot",         "High",     "Weak",   "No"],
@@ -45,20 +60,13 @@ let dataset = [
   ["Rain",      "Mild",        "High",     "Strong", "No"]
 ];
 
+let container = document.getElementById("tree");
 let target = dataset[0][dataset[0].length - 1];
 let root = new Node("root", target, dataset);
 let visited = [target];
 let queue = [root];
 
-// getTree(root);
-// getTree(root.branches[0]);
-// getTree(root.branches[0].branches[0]);
-// getTree(root.branches[1]);
-// getTree(root.branches[1].branches[1]);
-// getTree(root.branches[2]);
-// getTree(root.branches[2].branches[2]);
-// console.log(visited);
-// console.log(root);
+let checkForEnd = [];
 
 init();
 
@@ -70,13 +78,57 @@ function init()
     queue.shift();
     getTree(node);
   }
-  console.log(root);
+
+  for(let i of checkForEnd)
+  {
+    if (!i.branches.length)
+    {
+      let column = getColumn(i.data, i.data[0].indexOf(target));
+      let unique_value = getUniqueValue(column);
+      
+      let best = {value: 0, decision: 0};
+
+      for(j in unique_value)
+      {
+        if (unique_value[j] > best.value)
+        {
+          best = {value: unique_value[j], decision: j};
+        }
+      }
+
+      let name = target + " = " + best.decision;
+      let new_node = new Node(name, target, []);
+      i.branches.push(new_node);
+    }
+  }
+
+  drawTree(root, container);
+  // console.log(root);
 }
+
+
+
+function drawTree(node, container) {
+  let ul = document.createElement("ul");
+  let span = document.createElement("span");
+  span.innerHTML = node.name;
+
+  ul.appendChild(span);
+  container.appendChild(ul);
+
+  for (let i of node.branches)
+  {
+    let li = document.createElement("li");
+    ul.appendChild(li);
+    drawTree(i, li);
+  }
+}
+
 
 function getTree(node)
 {
   let data = node.data;
-  let best_ig = {dict: {},valueIG:0,attr: 0};
+  let best_ig = {dict: {},valueIG: -1,attr: 0};
 
   let check = [];
 
@@ -108,7 +160,10 @@ function getTree(node)
         IG += -(s_i/s) * entr;
     }
     if (IG === 0)
-      return;
+    {
+      continue;
+    }
+      
     check.push({dict: dict, valueIG: IG, attr: attr});
   }
   for(let i of check)
@@ -125,6 +180,7 @@ function getTree(node)
     new_node = new Node(best_ig.attr + " = " + i,best_ig.attr, best_ig.dict[i]);
     node.branches.push(new_node);
     queue.push(new_node);
+    checkForEnd.push(new_node);
   }
 }
 
@@ -192,6 +248,7 @@ function getColumn(data, attribute_index)
 
 function parseCsv()
 {
+  dataset = [];
   let file = document.getElementById("input_file");
   let a = [];
   a = file.files[0];
@@ -209,8 +266,8 @@ function parseCsv()
               i++;
           }
           row = row.slice(0, -1);
-          data.push(row.split(/,(?!\s)/));
+          dataset.push(row.split(/,(?!\s)/));
       }
-      console.log(data);
+      //console.log(data);
   }
 }
