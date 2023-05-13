@@ -9,6 +9,39 @@ class Node
   }
 }
 
+// let dataset = [
+//   ["Fever", "Cough", "Breathing issues", "Infected"],
+//   ["No", "No", "No", "No"],
+//   ["Yes", "Yes", "Yes", "Yes"],
+//   ["Yes", "Yes", "No", "No"],
+//   ["Yes", "No", "Yes", "Yes"],
+//   ["Yes", "Yes", "Yes", "Yes"],
+//   ["No", "Yes",  "No", "No"],
+//   ["Yes", "No", "Yes", "Yes"],
+//   ["Yes", "No", "Yes", "Yes"],
+//   ["No", "Yes", "Yes", "Yes"],
+//   ["Yes", "Yes", "No", "Yes"],
+//   ["No", "Yes",  "No", "No"],
+//   ["No", "Yes", "Yes", "Yes"],
+//   ["No", "Yes", "Yes", "No"],
+//   ["Yes","Yes", "No", "No"],
+// ];
+
+// let dataset = [
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+//   ["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+//   ["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
+// ];
+
 let dataset = [
   ["Fever", "Cough", "Breathing issues", "Infected"],
   ["No", "No", "No", "No"],
@@ -27,21 +60,7 @@ let dataset = [
   ["Yes","Yes", "No", "No"],
 ];
 
-// let dataset = [
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
-//   ["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
-//   ["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
-// ];
-let container = document.getElementById("tree-container");
+let container = document.getElementById("tree");
 let target = dataset[0][dataset[0].length - 1];
 let root = new Node("root", target, dataset);
 let visited = [target];
@@ -84,21 +103,25 @@ function init()
   }
 
   drawTree(root, container);
-
-
-
-
-  console.log(root);
+  // console.log(root);
 }
 
 
 
-function drawTree(node, container)
-{
+function drawTree(node, container) {
   let ul = document.createElement("ul");
   let span = document.createElement("span");
-  span.value = node.name;
-  ul.appendChild(span)
+  span.innerHTML = node.name;
+
+  ul.appendChild(span);
+  container.appendChild(ul);
+
+  for (let i of node.branches)
+  {
+    let li = document.createElement("li");
+    ul.appendChild(li);
+    drawTree(i, li);
+  }
 }
 
 
