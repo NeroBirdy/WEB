@@ -3,13 +3,16 @@ let context = canvas.getContext("2d");
 
 const bodySize = document.body.getBoundingClientRect();
 if(bodySize.width <= 450){
-    var size = Math.min(bodySize.width, bodySize.height) * 0.7;
+  var size = Math.min(bodySize.width, bodySize.height) * 0.7;
 }
-else if(bodySize.width <= 800){
-    var size = Math.min(bodySize.width, bodySize.height) * 0.82;
+else if(bodySize.width <= 900){
+  var size = Math.min(bodySize.width, bodySize.height) * 0.7;
+}
+else if(bodySize.width <= 1000){
+  var size = Math.min(bodySize.width, bodySize.height) * 0.8;
 }
 else{
-    var size = Math.min(bodySize.width, bodySize.height) * 0.9;
+  var size = Math.min(bodySize.width, bodySize.height) * 0.9;
 }
 canvas.setAttribute('width', size);
 canvas.setAttribute('height', size);
