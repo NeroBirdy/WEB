@@ -12,6 +12,19 @@ let matrix;
 let start = [-1, -1];
 let end = [-1, -1];
 
+const bodySize = document.body.getBoundingClientRect();
+if(bodySize.width <= 450){
+    var size = Math.min(bodySize.width, bodySize.height) * 0.7;
+}
+else if(bodySize.width <= 800){
+    var size = Math.min(bodySize.width, bodySize.height) * 0.82;
+}
+else{
+    var size = Math.min(bodySize.width, bodySize.height) * 0.9;
+}
+canvas.setAttribute('width', size);
+canvas.setAttribute('height', size);
+
 
 function createMap()
 {
@@ -19,9 +32,9 @@ function createMap()
     end = [-1, -1];
     n = document.getElementById("input").value;
     matrix = getMatrix(0);
-    context.clearRect(0, 0, 800, 800);
+    context.clearRect(0, 0, size, size);
     context.beginPath();
-    cube = 800 / n;
+    cube = size / n;
     let x = 0;
     let y = 0;
     for (let i = 0; i <= n; i++)

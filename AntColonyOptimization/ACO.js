@@ -2,6 +2,22 @@ let canvas = document.getElementById("myCanvas");
 let c = canvas.getContext("2d");
 let changeant = document.getElementById("ant");
 
+
+const bodySize = document.body.getBoundingClientRect();
+if(bodySize.width <= 450){
+    var size = Math.min(bodySize.width, bodySize.height) * 0.7;
+}
+else if(bodySize.width <= 800){
+    var size = Math.min(bodySize.width, bodySize.height) * 0.82;
+}
+else{
+    var size = Math.min(bodySize.width, bodySize.height) * 0.9;
+}
+canvas.setAttribute('width', size);
+canvas.setAttribute('height', size);
+
+
+
 canvas.addEventListener("click", function(event) {
 
     if (!end && countCities < 50)
@@ -257,22 +273,6 @@ function updatePheromones(ants)
     }
 
 }
-
-
-
-    
-function DeletePath()
-{
-    c.clearRect(0, 0, 800, 800);
-    for (let i = 0; i < vertexes.length; i++)
-    {
-        c.beginPath();
-        c.arc(vertexes[i].x, vertexes[i].y, 6, 0, 5 * Math.PI);
-        c.fillStyle = "black";
-        c.fill();
-    }
-}
-
 
 function Draw(path)
 {
