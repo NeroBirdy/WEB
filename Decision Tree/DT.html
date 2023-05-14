@@ -1,20 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="DT.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="DT.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <title>Дерево решений</title>
 </head>
 <body>
-    <input type="file" id = "input_file">
-
-    <button id="myButton">Выбрать готовый файл</button>
-    <div id="myList" style="display: none;">
-      <button id = "data1">Tennis</button>
-      <button id = "data2">Species</button>
-      <button id = "data3">Infected</button>
+  <div class="area">
+    <div class="header">
+      <div class="back_button_area">
+          <div class="back_button_fon">
+              <div class="back_button"></div>
+          </div>
+          <div class="button_empty"></div>
+      </div>
+      <div class="title_area">
+          <p class="title">
+              Дерево решений
+          </p>
+          <div class="title_empty"></div>
+      </div>
+      <div class="empty_rigth"></div>
+    </div>
+    <div class="file_area">
+      <div class="new_file">
+        <input class="input_file" type="file" id="input_file">
+        <label class="input_label" for="input_file">Выбрать файл</label>
+      </div>
+      <div class="default_file">
+        <button class="btn" id="myButton">Выбрать готовый файл</button>
+        <div id="myList" style="display: none;">
+          <div class="buttons_area">
+            <button id="data1">Tennis</button>
+            <button id="data2">Species</button>
+            <button id="data3">Infected</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="tree">
         <ul id = "root">

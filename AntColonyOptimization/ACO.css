@@ -13,25 +13,23 @@ body {
 }
 
 .fon {
-    width: 800px;
+    width: 100%;
     height: 800px;
     /* background: rgb(215, 174, 228); */
 }
 
-.fon_buttons {
-    
-}
-
 .fon_div {
-    max-width: 800px;
-    margin: 0 auto;
+    margin-left: calc(70px + (370 - 70)*((100vw - 450px)/(1400 - 450)));
 }
 
 .canvas {
     border: 2px solid #000000;
     background: #ffc2fb;
 }
-
+#clear{
+  position: relative;
+  right: calc(-15px + (50 - -15)*((100vw - 450px)/(1200 - 450)));
+}
 #clear, #create_put {
     width: 100px;
     height: 36px;
@@ -41,15 +39,17 @@ body {
     background: #4478A1;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 60px;
-    height: 68px;
-    width: 150px;
+    height: calc(32px + (68 - 32)*((100vw - 450px)/(1400 - 450)));
+    width: calc(70px + (150 - 70)*((100vw - 450px)/(1400 - 450)));
+    margin-left: calc(-45px + (-200 - -45)*((100vw - 450px)/(1400 - 450)));
     margin-bottom: 6%;
+    marg
     /*opacity: 0;*/
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: calc(10px + (14 - 10)*((100vw - 450px)/(1400 - 450)));
+    line-height: 10px;
     color: white;
     border: 0;
 }
@@ -97,8 +97,8 @@ body {
   font-family: "Inter";
   font-style: normal;
   font-weight: 900;
-  font-size: 90px;
-  line-height: 155px;
+  font-size: calc(30px + (70 - 30)*((100vw - 450px)/(1200 - 450)));
+  line-height: 50px;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -156,5 +156,7 @@ body {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  min-width: 340px;
+  min-width: 120px;
+  font-size: calc(10px + (14 - 10)*((100vw - 450px)/(1400 - 450)));
+  margin-left: calc(-30px + (-280 - -30) * ((100vw - 450px)/(1400 - 450)));
 }

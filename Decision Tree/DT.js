@@ -1,5 +1,3 @@
-
-
 class Node
 {
   constructor(name, attr, data)
@@ -72,7 +70,7 @@ var list = document.getElementById("myList");
 
 button.addEventListener("click", function() {
   if (list.style.display === "none") {
-    list.style.display = "block";
+    list.style.display = "flex";
   } else {
     list.style.display = "none";
   }
@@ -235,6 +233,7 @@ async function byPass()
 function drawTree(node, container) {
   let span = document.createElement("span");
   span.innerHTML = node.name;
+  span.className = "block";
   container.appendChild(span);
   if (node.name.includes(target))
     return;
@@ -441,6 +440,4 @@ select.addEventListener("change", function() {
   {
     devider = " ";
   }
-
 });
-
