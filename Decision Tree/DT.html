@@ -13,7 +13,7 @@
     <div class="header">
       <div class="back_button_area">
           <div class="back_button_fon">
-              <a href="../home.html"><div class="back_button"></div></a>
+              <div class="back_button"></div>
           </div>
           <div class="button_empty"></div>
       </div>
@@ -46,12 +46,19 @@
             <li></li>
         </ul>
     </div>
-    <select name="" id="selection"></select> 
-    <label for="userInput">Введите данные:</label>
-    <input type="text" id = "userInput" >
-    <button onclick = "byPass()">Обход данных</button>
-    <button onclick = "init()">Построить дерево</button>
-  
+    <div class="button_area">
+      <div class="divider">
+        <label for="selection">Разделитель:</label>
+        <select name="" id="selection"></select>
+      </div>
+      <div class="input_data">
+        <label for="userInput">Введите данные:</label>
+        <input type="text" id="userInput">
+      </div>
+      <button class="btn by_pass_button" onclick="byPass()">Обход данных</button>
+      <button class="btn init_button" onclick="init()">Построить дерево</button>
+    </div>
+  </div>
 </body>
 <script src = "DT.js"></script>
 </html>
