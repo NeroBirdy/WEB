@@ -14,7 +14,6 @@ class Node
 let dataset = [];
 
 
-
 let data1 = [
   ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
   ["Sunny",     "Hot",         "High",     "Weak",   "No"],
@@ -97,6 +96,7 @@ dynamicButtons.forEach(function(dynamicButton) {
       dataset = data3;
     }
     list.style.display = "none";
+    document.getElementById("input_file").value = "";
     // Выполнение действия при клике на динамическую кнопку
   });
 });
@@ -112,8 +112,20 @@ let queue;
 let checkForEnd = [];
 
 
-function init()
+let btn = document.getElementById("input_file");
+btn.addEventListener("change", function()
 {
+  parseCsv();
+});
+
+async function init()
+{
+  let tree = document.getElementsByTagName("ul")[0].children[0].children;
+  if (tree.length)
+  {
+    tree[1].remove();
+    tree[0].remove();
+  }
   if (!dataset.length)
   {
     return;
@@ -157,52 +169,67 @@ function init()
   // console.log(root);
 }
 
+let red = [];
 
 async function byPass()
 {
+  if (document.getElementById("userInput").value === "")
+  {
+    return;
+  }
   if (devider === ",")
-          {
-            decisionArray = document.getElementById("userInput").value.split(/,(?!\s)/);
-          }
-          if (devider === ";")
-          {
-            decisionArray = document.getElementById("userInput").value.split(/;(?!\s)/);
-          }
-          if (devider === " ")
-          {
-            decisionArray = document.getElementById("userInput").value.split(/ (?!\s)/);
-          }
-  let ul = document.getElementsByTagName("li")[0];
+  {
+    decisionArray = document.getElementById("userInput").value.split(/,(?!\s)/);
+  }
+  if (devider === ";")
+  {
+    decisionArray = document.getElementById("userInput").value.split(/;(?!\s)/);
+  }
+  if (devider === " ")
+  {
+    decisionArray = document.getElementById("userInput").value.split(/ (?!\s)/);
+  }
+  let spans = document.getElementsByTagName("span");
+  if (!spans.length)
+  {
+    return;
+  }
+  for (let i in spans)
+  {
+    spans[i].style = "background-color:white";
+  }
 
+  let li = document.getElementsByTagName("li")[0];
+  // console.log(li);
+  await new Promise(resolve => setTimeout(resolve, 150));
+  li.children[0].style = "background-color:red";
   for (let i of decisionArray)
   {
+    let ul = li.children[1];
     let children = ul.children;
+    // console.log(children);
 
-    for (let j = 1; j < children.length; j++)
+    for (let j of children)
     {
-      let child = children[j].children[0];
-      let name = child.children[0].innerHTML;
+      let name = j.children[0].innerHTML;
       let decision = name.split(" = ")[1];
+      // console.log(j);
 
       if (decision === i)
       {
-        // console.log(child);
+        li = j;
         await new Promise(resolve => setTimeout(resolve, 150));
-        child.children[0].style = "background-color:red";
-        ul = child;
-        break;
+        li.children[0].style = "background-color:red";
       }
     }
   }
 
-  let result = ul.children[1].children[0].children[0];
-
+  let result = li.children[1].children[0].children[0];
   if (result.innerHTML.includes(target))
   {
     await new Promise(resolve => setTimeout(resolve, 150));
     result.style = "background-color:red";
   }
-  // console.log(result.innerHTML);
 }
 
 
@@ -210,6 +237,8 @@ function drawTree(node, container) {
   let span = document.createElement("span");
   span.innerHTML = node.name;
   container.appendChild(span);
+  if (node.name.includes(target))
+    return;
   let ul = document.createElement("ul");
 
   container.appendChild(ul);
@@ -377,7 +406,7 @@ function parseCsv()
             dataset.push(row.split(/ (?!\s)/));
           }
       }
-      console.log(dataset);
+      //console.log(dataset);
   }
 }
 
