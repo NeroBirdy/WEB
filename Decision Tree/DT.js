@@ -43,29 +43,31 @@ class Node
 // ];
 
 let dataset = [
-  ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
-  ["Sunny",     "Hot",         "High",     "Weak",   "No"],
-  ["Sunny",     "Hot",         "High",     "Strong", "No"],
-  ["Overcast",  "Hot",         "High",     "Weak",   "Yes"],
-  ["Rain",      "Mild",        "High",     "Weak",   "Yes"],
-  ["Rain",      "Cool",        "Normal",   "Weak",   "Yes"],
-  ["Rain",      "Cool",        "Normal",   "Strong", "Yes"],
-  ["Overcast",  "Cool",        "Normal",   "Strong", "No"],
-  ["Sunny",     "Mild",        "High",     "Weak",   "Yes"],
-  ["Sunny",     "Cool",        "Normal",   "Weak",   "No"],
-  ["Rain",      "Mild",        "Normal",   "Weak",   "Yes"],
-  ["Sunny",     "Mild",        "Normal",   "Strong", "Yes"],
-  ["Overcast",  "Mild",        "High",     "Strong", "Yes"],
-  ["Overcast",  "Hot",         "Normal",   "Weak",   "Yes"],
-  ["Rain",      "Mild",        "High",     "Strong", "No"]
+  ["Fever", "Cough", "Breathing issues", "Infected"],
+  ["No", "No", "No", "No"],
+  ["Yes", "Yes", "Yes", "Yes"],
+  ["Yes", "Yes", "No", "No"],
+  ["Yes", "No", "Yes", "Yes"],
+  ["Yes", "Yes", "Yes", "Yes"],
+  ["No", "Yes",  "No", "No"],
+  ["Yes", "No", "Yes", "Yes"],
+  ["Yes", "No", "Yes", "Yes"],
+  ["No", "Yes", "Yes", "Yes"],
+  ["Yes", "Yes", "No", "Yes"],
+  ["No", "Yes",  "No", "No"],
+  ["No", "Yes", "Yes", "Yes"],
+  ["No", "Yes", "Yes", "No"],
+  ["Yes","Yes", "No", "No"],
 ];
 
 let container = document.getElementById("tree");
+let devider = ",";
 let target = dataset[0][dataset[0].length - 1];
 let root = new Node("root", target, dataset);
 let visited = [target];
 let queue = [root];
 
+let arr = [];
 let checkForEnd = [];
 
 init();
@@ -115,12 +117,12 @@ function drawTree(node, container) {
 
   ul.appendChild(span);
   container.appendChild(ul);
-
   for (let i of node.branches)
   {
     let li = document.createElement("li");
     ul.appendChild(li);
     drawTree(i, li);
+
   }
 }
 
@@ -266,8 +268,55 @@ function parseCsv()
               i++;
           }
           row = row.slice(0, -1);
-          dataset.push(row.split(/,(?!\s)/));
+          if (devider === ",")
+          {
+            dataset.push(row.split(/,(?!\s)/));
+          }
+          if (devider === ";")
+          {
+            dataset.push(row.split(/;(?!\s)/));
+          }
+          if (devider === " ")
+          {
+            dataset.push(row.split(/ (?!\s)/));
+          }
       }
-      //console.log(data);
+      console.log(dataset);
   }
 }
+
+
+
+
+// Создаем элемент <select>
+const select = document.getElementById("selection");
+
+// Массив опций
+const options = ["Запятая", "Точка с запятой", "Пробел"];
+
+// Создаем и добавляем опции в <select>
+options.forEach((option) => {
+  const optionElement = document.createElement("option");
+  optionElement.text = option;
+  optionElement.value = option;
+  select.appendChild(optionElement);
+});
+
+// Добавляем обработчик события изменения значения в <select>
+select.addEventListener("change", function() {
+  const selectedOption = select.options[select.selectedIndex].value;
+  if (selectedOption === "Запятая")
+  {
+    devider = ",";
+  }
+  else if (selectedOption === "Точка с запятой")
+  {
+    devider = ";";
+  }
+  else
+  {
+    devider = " ";
+  }
+  // Здесь можно выполнить дополнительные действия в зависимости от выбранного значения
+});
+
