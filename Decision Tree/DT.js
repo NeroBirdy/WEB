@@ -9,6 +9,39 @@ class Node
   }
 }
 
+let dataset = [
+  ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
+  ["Sunny",     "Hot",         "High",     "Weak",   "No"],
+  ["Sunny",     "Hot",         "High",     "Strong", "No"],
+  ["Overcast",  "Hot",         "High",     "Weak",   "Yes"],
+  ["Rain",      "Mild",        "High",     "Weak",   "Yes"],
+  ["Rain",      "Cool",        "Normal",   "Weak",   "Yes"],
+  ["Rain",      "Cool",        "Normal",   "Strong", "Yes"],
+  ["Overcast",  "Cool",        "Normal",   "Strong", "No"],
+  ["Sunny",     "Mild",        "High",     "Weak",   "Yes"],
+  ["Sunny",     "Cool",        "Normal",   "Weak",   "No"],
+  ["Rain",      "Mild",        "Normal",   "Weak",   "Yes"],
+  ["Sunny",     "Mild",        "Normal",   "Strong", "Yes"],
+  ["Overcast",  "Mild",        "High",     "Strong", "Yes"],
+  ["Overcast",  "Hot",         "Normal",   "Weak",   "Yes"],
+  ["Rain",      "Mild",        "High",     "Strong", "No"]
+];
+
+// let dataset = [
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+//   ["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+//   ["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
+// ];
+
 // let dataset = [
 //   ["Fever", "Cough", "Breathing issues", "Infected"],
 //   ["No", "No", "No", "No"],
@@ -26,39 +59,6 @@ class Node
 //   ["No", "Yes", "Yes", "No"],
 //   ["Yes","Yes", "No", "No"],
 // ];
-
-// let dataset = [
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
-//   ["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
-//   ["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
-// ];
-
-let dataset = [
-  ["Fever", "Cough", "Breathing issues", "Infected"],
-  ["No", "No", "No", "No"],
-  ["Yes", "Yes", "Yes", "Yes"],
-  ["Yes", "Yes", "No", "No"],
-  ["Yes", "No", "Yes", "Yes"],
-  ["Yes", "Yes", "Yes", "Yes"],
-  ["No", "Yes",  "No", "No"],
-  ["Yes", "No", "Yes", "Yes"],
-  ["Yes", "No", "Yes", "Yes"],
-  ["No", "Yes", "Yes", "Yes"],
-  ["Yes", "Yes", "No", "Yes"],
-  ["No", "Yes",  "No", "No"],
-  ["No", "Yes", "Yes", "Yes"],
-  ["No", "Yes", "Yes", "No"],
-  ["Yes","Yes", "No", "No"],
-];
 
 let container = document.getElementById("tree");
 let devider = ",";
@@ -105,9 +105,45 @@ function init()
   }
 
   drawTree(root, container);
+  byPass(["Overcast", "Normal"]);
   // console.log(root);
 }
 
+
+async function byPass(decisionArray)
+{
+  let ul = document.getElementsByTagName("ul")[0];
+
+  for (let i of decisionArray)
+  {
+    let children = ul.children;
+
+    for (let j = 1; j < children.length; j++)
+    {
+      let child = children[j].children[0];
+      let name = child.children[0].innerHTML;
+      let decision = name.split(" = ")[1];
+
+      if (decision === i)
+      {
+        // console.log(child);
+        await new Promise(resolve => setTimeout(resolve, 150));
+        child.children[0].style = "background-color:red";
+        ul = child;
+        break;
+      }
+    }
+  }
+
+  let result = ul.children[1].children[0].children[0];
+
+  if (result.innerHTML.includes(target))
+  {
+    await new Promise(resolve => setTimeout(resolve, 150));
+    result.style = "background-color:red";
+  }
+  // console.log(result.innerHTML);
+}
 
 
 function drawTree(node, container) {
