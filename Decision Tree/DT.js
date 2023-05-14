@@ -1,3 +1,5 @@
+
+
 class Node
 {
   constructor(name, attr, data)
@@ -9,7 +11,11 @@ class Node
   }
 }
 
-let dataset = [
+let dataset = [];
+
+
+
+let data1 = [
   ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
   ["Sunny",     "Hot",         "High",     "Weak",   "No"],
   ["Sunny",     "Hot",         "High",     "Strong", "No"],
@@ -27,53 +33,95 @@ let dataset = [
   ["Rain",      "Mild",        "High",     "Strong", "No"]
 ];
 
-// let dataset = [
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
-//   ["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
-//   ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
-//   ["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
-// ];
+let data2 = [
+["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
+["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
+["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
+["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
+];
 
-// let dataset = [
-//   ["Fever", "Cough", "Breathing issues", "Infected"],
-//   ["No", "No", "No", "No"],
-//   ["Yes", "Yes", "Yes", "Yes"],
-//   ["Yes", "Yes", "No", "No"],
-//   ["Yes", "No", "Yes", "Yes"],
-//   ["Yes", "Yes", "Yes", "Yes"],
-//   ["No", "Yes",  "No", "No"],
-//   ["Yes", "No", "Yes", "Yes"],
-//   ["Yes", "No", "Yes", "Yes"],
-//   ["No", "Yes", "Yes", "Yes"],
-//   ["Yes", "Yes", "No", "Yes"],
-//   ["No", "Yes",  "No", "No"],
-//   ["No", "Yes", "Yes", "Yes"],
-//   ["No", "Yes", "Yes", "No"],
-//   ["Yes","Yes", "No", "No"],
-// ];
+let data3 = [
+["Fever", "Cough", "Breathing issues", "Infected"],
+["No", "No", "No", "No"],
+["Yes", "Yes", "Yes", "Yes"],
+["Yes", "Yes", "No", "No"],
+["Yes", "No", "Yes", "Yes"],
+["Yes", "Yes", "Yes", "Yes"],
+["No", "Yes",  "No", "No"],
+["Yes", "No", "Yes", "Yes"],
+["Yes", "No", "Yes", "Yes"],
+["No", "Yes", "Yes", "Yes"],
+["Yes", "Yes", "No", "Yes"],
+["No", "Yes",  "No", "No"],
+["No", "Yes", "Yes", "Yes"],
+["No", "Yes", "Yes", "No"],
+["Yes","Yes", "No", "No"],
+];
+
+
+
+var button = document.getElementById("myButton");
+var list = document.getElementById("myList");
+
+button.addEventListener("click", function() {
+  if (list.style.display === "none") {
+    list.style.display = "block";
+  } else {
+    list.style.display = "none";
+  }
+});
+
+var dynamicButtons = document.querySelectorAll("#myList button");
+
+dynamicButtons.forEach(function(dynamicButton) {
+  dynamicButton.addEventListener("click", function() {
+    let text =  this.id;
+    if (text === "data1")
+    {
+      dataset = data1;
+    }
+    else if (text === "data2")
+    {
+      dataset = data2;
+    }
+    else
+    {
+      dataset = data3;
+    }
+    list.style.display = "none";
+    // Выполнение действия при клике на динамическую кнопку
+  });
+});
+
 
 let container = document.getElementById("tree");
 let devider = ",";
-let target = dataset[0][dataset[0].length - 1];
-let root = new Node("root", target, dataset);
-let visited = [target];
-let queue = [root];
+let target;
+let root;
+let visited;
+let queue;
 
-let arr = [];
 let checkForEnd = [];
 
-init();
 
 function init()
 {
+  if (!dataset.length)
+  {
+    return;
+  }
+  target = dataset[0][dataset[0].length - 1];
+  root = new Node("root", target, dataset);
+  visited = [target];
+  queue = [root];
   while (queue.length !== 0)
   {
     node = queue[0];
@@ -104,56 +152,68 @@ function init()
     }
   }
 
-  drawTree(root, container);
-  byPass(["Overcast", "Normal"]);
+  drawTree(root, container.children[0].children[0]);
+  //byPass(["Overcast", "Normal"]);
   // console.log(root);
 }
 
 
-async function byPass(decisionArray)
+async function byPass()
 {
-  let ul = document.getElementsByTagName("ul")[0];
+  if (devider === ",")
+          {
+            decisionArray = document.getElementById("userInput").value.split(/,(?!\s)/);
+          }
+          if (devider === ";")
+          {
+            decisionArray = document.getElementById("userInput").value.split(/;(?!\s)/);
+          }
+          if (devider === " ")
+          {
+            decisionArray = document.getElementById("userInput").value.split(/ (?!\s)/);
+          }
+
+  let li = document.getElementsByTagName("li")[0];
+  // console.log(li);
   await new Promise(resolve => setTimeout(resolve, 150));
-  ul.children[0].style = "background-color:red";
+  li.children[0].style = "background-color:red";
 
   for (let i of decisionArray)
   {
+    let ul = li.children[1];
     let children = ul.children;
+    // console.log(children);
 
-    for (let j = 1; j < children.length; j++)
+    for (let j of children)
     {
-      let child = children[j].children[0];
-      let name = child.children[0].innerHTML;
+      let name = j.children[0].innerHTML;
       let decision = name.split(" = ")[1];
+      // console.log(j);
 
       if (decision === i)
       {
-        // console.log(child);
+        li = j;
         await new Promise(resolve => setTimeout(resolve, 150));
-        child.children[0].style = "background-color:red";
-        ul = child;
-        break;
+        li.children[0].style = "background-color:red";
       }
     }
   }
 
-  let result = ul.children[1].children[0].children[0];
-
-  if (result.innerHTML.includes(target))
+  let result = li.children[1].children[0].children[0];
+  if (result.includes(target))
   {
     await new Promise(resolve => setTimeout(resolve, 150));
     result.style = "background-color:red";
   }
-  // console.log(result.innerHTML);
 }
 
 
 function drawTree(node, container) {
-  let ul = document.createElement("ul");
   let span = document.createElement("span");
   span.innerHTML = node.name;
+  container.appendChild(span);
+  let ul = document.createElement("ul");
 
-  ul.appendChild(span);
   container.appendChild(ul);
   for (let i of node.branches)
   {
