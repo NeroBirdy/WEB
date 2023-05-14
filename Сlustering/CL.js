@@ -11,8 +11,11 @@ else if(bodySize.width <= 900){
 else if(bodySize.width <= 1000){
   var size = Math.min(bodySize.width, bodySize.height) * 0.8;
 }
-else{
+else if(bodySize.width <= 1400){
   var size = Math.min(bodySize.width, bodySize.height) * 0.9;
+}
+else{
+  var size = Math.min(bodySize.width, bodySize.height) * 1;
 }
 canvas.setAttribute('width', size);
 canvas.setAttribute('height', size);

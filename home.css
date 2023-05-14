@@ -1,0 +1,138 @@
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.area {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-image: url(image/fon.jpg);
+  background-size: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 25%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.title_area {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  width: 100%;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 85px;
+  line-height: 155px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.empty_right, .empty_left {
+  width: 15%;
+}
+
+.task_area {
+	width: 100%;
+	height: 75%;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.tasks {
+	width: 70%;
+	height: 50%;
+	margin: 0 auto;
+}
+
+.first_line, .second_line {
+	width: 100%;
+	height: 50%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.astar, .claster, .genetica, .aco, .tree {
+	height: 50%;
+	width: 25%;
+	margin: auto auto;
+}
+
+.btn {
+	width: 50%;
+	height: 50%;
+	margin: auto auto; 
+}
+
+.astar_button, .claster_button, .genetica_button, .aco_button, .tree_button {
+	width: 20%;
+	/*height: 60%;*/
+	/*height: unset;*/
+	background-repeat: no-repeat;
+  background-position: center;
+  border: solid 1px black;
+  border-radius: 30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transition-duration: 0.5s;
+}
+
+.astar_button {
+	background-image: url(image/Astar1.svg);
+	background-size: 150%;
+	z-index: 5;
+}
+
+.claster_button {
+	background-image: url(image/klass.svg);
+	background-size: 130%;
+	z-index: 4;
+}
+
+.genetica_button {
+	background-image: url(image/gen.svg);
+	background-size: 200%;
+	z-index: 3;
+}
+
+.aco_button {
+	background-image: url(image/murav.svg);
+	background-size: 110%;
+	z-index: 2;
+}
+
+.tree_button {
+	background-image: url(image/derev.svg);
+	background-size: 100%;
+	z-index: 1;
+}
+
+.astar_button:hover, .claster_button:hover, .genetica_button:hover, .aco_button:hover, .tree_button:hover {
+	position: relative;
+	background-color: #cccccc;
+	height: 60%;
+}

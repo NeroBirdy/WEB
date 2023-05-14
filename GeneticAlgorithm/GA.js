@@ -11,16 +11,19 @@ let finish = false;
 const bodySize = document.body.getBoundingClientRect();
 if(bodySize.width <= 450){
     var size = Math.min(bodySize.width, bodySize.height) * 0.7;
-}
-else if(bodySize.width <= 900){
+  }
+  else if(bodySize.width <= 900){
     var size = Math.min(bodySize.width, bodySize.height) * 0.7;
-}
-else if(bodySize.width <= 1000){
+  }
+  else if(bodySize.width <= 1000){
     var size = Math.min(bodySize.width, bodySize.height) * 0.8;
-}
-else{
-    var size = Math.min(bodySize.width, bodySize.height) * 0.9;
-}
+  }
+  else if(bodySize.width <= 1400){
+    var size = Math.min(bodySize.width, bodySize.height) * 0.8;
+  }
+  else{
+    var size = Math.min(bodySize.width, bodySize.height) * 1;
+  }
 canvas.setAttribute('width', size);
 canvas.setAttribute('height', size);
 
