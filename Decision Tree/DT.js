@@ -1,5 +1,3 @@
-
-
 class Node
 {
   constructor(name, attr, data)
@@ -72,7 +70,7 @@ var list = document.getElementById("myList");
 
 button.addEventListener("click", function() {
   if (list.style.display === "none") {
-    list.style.display = "block";
+    list.style.display = "flex";
   } else {
     list.style.display = "none";
   }
@@ -97,7 +95,6 @@ dynamicButtons.forEach(function(dynamicButton) {
     }
     list.style.display = "none";
     document.getElementById("input_file").value = "";
-    // Выполнение действия при клике на динамическую кнопку
   });
 });
 
@@ -146,21 +143,21 @@ async function init()
     if (!i.branches.length)
     {
       let column = getColumn(i.data, i.data[0].indexOf(target));
-      let unique_value = getUniqueValue(column);
+      let uniqueValue = getUniqueValue(column);
       
       let best = {value: 0, decision: 0};
 
-      for(j in unique_value)
+      for(j in uniqueValue)
       {
-        if (unique_value[j] > best.value)
+        if (uniqueValue[j] > best.value)
         {
-          best = {value: unique_value[j], decision: j};
+          best = {value: uniqueValue[j], decision: j};
         }
       }
 
       let name = target + " = " + best.decision;
-      let new_node = new Node(name, target, []);
-      i.branches.push(new_node);
+      let newNode = new Node(name, target, []);
+      i.branches.push(newNode);
     }
   }
 
@@ -236,6 +233,7 @@ async function byPass()
 function drawTree(node, container) {
   let span = document.createElement("span");
   span.innerHTML = node.name;
+  span.className = "block";
   container.appendChild(span);
   if (node.name.includes(target))
     return;
@@ -255,7 +253,7 @@ function drawTree(node, container) {
 function getTree(node)
 {
   let data = node.data;
-  let best_ig = {dict: {},valueIG: -1,attr: 0};
+  let bestIG = {dict: {},valueIG: -1,attr: 0};
 
   let check = [];
 
@@ -263,8 +261,8 @@ function getTree(node)
     return;
 
   column = getColumn(data, data[0].indexOf(target));
-  unique_value = getUniqueValue(column);
-  all_entropy = entropy(unique_value, data);
+  uniqueValue = getUniqueValue(column);
+  allEntropy = entropy(uniqueValue, data);
 
   for (let attr of data[0])
   {
@@ -273,18 +271,18 @@ function getTree(node)
 
     let dict = getUniqueRows(attr, data);
 
-    let IG = all_entropy;
+    let IG = allEntropy;
 
     for (let i in dict)
     {
         let s = data.length - 1;
-        let s_i = dict[i].length - 1;
+        let Si = dict[i].length - 1;
 
         column = getColumn(dict[i], data[0].indexOf(target));
-        unique_value = getUniqueValue(column);
-        entr = entropy(unique_value, dict[i])
+        uniqueValue = getUniqueValue(column);
+        entr = entropy(uniqueValue, dict[i])
 
-        IG += -(s_i/s) * entr;
+        IG += -(Si/s) * entr;
     }
     if (IG === 0)
     {
@@ -295,30 +293,30 @@ function getTree(node)
   }
   for(let i of check)
   {
-      if (i.valueIG > best_ig.valueIG)
+      if (i.valueIG > bestIG.valueIG)
       {
-          best_ig = i;
+          bestIG = i;
       }
   }
-  visited.push(best_ig.attr);
+  visited.push(bestIG.attr);
 
-  for(let i in best_ig.dict)
+  for(let i in bestIG.dict)
   {
-    new_node = new Node(best_ig.attr + " = " + i,best_ig.attr, best_ig.dict[i]);
-    node.branches.push(new_node);
-    queue.push(new_node);
-    checkForEnd.push(new_node);
+    newNode = new Node(bestIG.attr + " = " + i,bestIG.attr, bestIG.dict[i]);
+    node.branches.push(newNode);
+    queue.push(newNode);
+    checkForEnd.push(newNode);
   }
 }
 
 function getUniqueRows(attribute, data)
 {
   column = getColumn(data, data[0].indexOf(attribute));
-  unique_value = getUniqueValue(column);
+  uniqueValue = getUniqueValue(column);
 
   let dict = {};
 
-  for (let i in unique_value)
+  for (let i in uniqueValue)
   {
     dict[i] = [];
     dict[i].push(data[0]);
@@ -333,13 +331,13 @@ function getUniqueRows(attribute, data)
 }
 
 
-function entropy(unique_value, data)
+function entropy(uniqueValue, data)
 {
   let entropy = 0;
   let p;
-  for (let i in unique_value)
+  for (let i in uniqueValue)
   {
-      p = unique_value[i] / (data.length-1);
+      p = uniqueValue[i] / (data.length-1);
       entropy += -p * Math.log2(p);
   }
   return entropy;
@@ -347,27 +345,27 @@ function entropy(unique_value, data)
 
 function getUniqueValue(column)
 {
-  let unique_value = {};
+  let uniqueValue = {};
 
   for (let i = 0; i < column.length; i++)
   {
-      unique_value[column[i]] = 0;
+      uniqueValue[column[i]] = 0;
   }
 
   for (let i = 0; i < column.length; i++)
   {
-      unique_value[column[i]] += 1;
+      uniqueValue[column[i]] += 1;
   }
-  return unique_value;
+  return uniqueValue;
 }
 
-function getColumn(data, attribute_index)
+function getColumn(data, attributeIndex)
 {
   let column = [];
 
   for (let j = 1; j < data.length; j++)
   {
-      column.push(data[j][attribute_index]);
+      column.push(data[j][attributeIndex]);
   }
   return column;
 }
@@ -406,20 +404,20 @@ function parseCsv()
             dataset.push(row.split(/ (?!\s)/));
           }
       }
-      //console.log(dataset);
+
   }
 }
 
 
 
 
-// Создаем элемент <select>
+
 const select = document.getElementById("selection");
 
-// Массив опций
+
 const options = ["Запятая", "Точка с запятой", "Пробел"];
 
-// Создаем и добавляем опции в <select>
+
 options.forEach((option) => {
   const optionElement = document.createElement("option");
   optionElement.text = option;
@@ -427,7 +425,7 @@ options.forEach((option) => {
   select.appendChild(optionElement);
 });
 
-// Добавляем обработчик события изменения значения в <select>
+
 select.addEventListener("change", function() {
   const selectedOption = select.options[select.selectedIndex].value;
   if (selectedOption === "Запятая")
@@ -442,6 +440,5 @@ select.addEventListener("change", function() {
   {
     devider = " ";
   }
-  // Здесь можно выполнить дополнительные действия в зависимости от выбранного значения
-});
 
+});
