@@ -15,6 +15,8 @@ let end = [-1, -1];
 
 function createMap()
 {
+    start = [-1, -1];
+    end = [-1, -1];
     n = document.getElementById("input").value;
     matrix = getMatrix(0);
     context.clearRect(0, 0, 800, 800);
@@ -58,7 +60,6 @@ function getMatrix(count) {
 }
 
 async function generatePrimMaze() {
-
     start = [-1, -1];
     end = [-1, -1];
     matrix =  getMatrix(1);
@@ -339,6 +340,22 @@ async function wait(c) {
 
 async function Astar(start, end)
 {
+    
+    if (start[0] === -1 && end[0] === -1)
+    {
+        alert("Поставьте начальную и конечную точки");
+        return;
+    }
+    if (start[0] === -1)
+    {
+        alert("Поставьте начальную точку");
+        return;
+    }
+    if (end[0] === -1)
+    {
+        alert("Поставьте конечную точку");
+        return;
+    }
     let queue = new Queue();
     let GScores = getMatrix(-1);
 

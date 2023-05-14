@@ -6,7 +6,6 @@ let end = false;
 let finish = false;
 
 
-
 let button1 = document.getElementById("Slider1");
 let button2 = document.getElementById("Slider2");
 
@@ -28,6 +27,17 @@ let time = 10;
 
 let canvas = document.getElementById("myCanvas");
 let c = canvas.getContext("2d");
+
+
+function clearMap()
+{
+    vertexes = [];
+    pathes = [];
+    bestPath = [];
+    count = 0;
+    c.clearRect(0,0,canvas.width,canvas.height);
+}
+
 
 canvas.addEventListener("click", function(event) {
 
@@ -129,6 +139,10 @@ function getFirtsPopulation()
 
 async function Genetic()
 {
+    button1.disabled = true;
+    button2.disabled = true;
+    document.getElementById("create_put").disabled = true;
+    document.getElementById("clear").disabled = true;
     fl = true;
     for(let k = 0; k < 1000000; k++)
     {
@@ -186,6 +200,10 @@ async function Genetic()
     end = false;
     pathes = [];
     bestPath = [];
+    button1.disabled = false;
+    button2.disabled = false;
+    document.getElementById("create_put").disabled = false;
+    document.getElementById("clear").disabled = false;
 }
 
 function Sort(distances)

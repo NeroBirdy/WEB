@@ -1,5 +1,6 @@
 let canvas = document.getElementById("myCanvas");
 let c = canvas.getContext("2d");
+let changeant = document.getElementById("ant");
 
 canvas.addEventListener("click", function(event) {
 
@@ -32,7 +33,20 @@ canvas.addEventListener("click", function(event) {
     }
 });
 
-let countAnts = 0;
+changeant.oninput = function()
+{
+    countAnts = this.value;
+    document.getElementById("text_ant").innerHTML = this.value;
+}
+
+function clearMap()
+{
+    countCities = 0;
+    vertexes = [];
+    c.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+let countAnts = 100;
 let countCities = 0;
 let vertexes = [];
 let distances = [];
@@ -55,6 +69,15 @@ class Ant
 
 async function ACO()
 {
+    if (vertexes.length < 3)
+    {
+        alert("Поставьте хотя-бы три точки");
+        return;
+    }
+    document.getElementById("create_put").disabled = true;
+    document.getElementById("clear").disabled = true;
+    document.getElementById("ant").disabled = true;
+    
     end = true;
     let count = 0;
     let bestPath = [];
@@ -63,7 +86,7 @@ async function ACO()
     distances = getDist();
     pheromones = [];
     let ants = [];
-    for(let i = 0; i < 100; i++)
+    for(let i = 0; i < countAnts; i++)
     {
         ants.push(new Ant);
     }
@@ -112,6 +135,9 @@ async function ACO()
     
     end = false;
     finish = false;
+    document.getElementById("ant").disabled = false;
+    document.getElementById("clear").disabled = false;
+    document.getElementById("create_put").disabled = false;
 }
 
 
@@ -150,7 +176,7 @@ function getFirstPheromones()
 
 function getAnts(ants)
 {
-    for(let i = 0; i < 100; i++)
+    for(let i = 0; i < countAnts; i++)
     {
         let start = Math.floor(Math.random() * vertexes.length);
         ants[i].path = [];

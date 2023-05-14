@@ -90,7 +90,7 @@ function assignClusters(dots, centers)
 }
 
 
-function recontrucrion(clasters)
+function  recontruction(clasters)
 {
     let newCenters = [];
     for (let i = 0; i < clasters.length; i++)
@@ -134,23 +134,18 @@ function KMeans()
   }
     let count = 0;
     clasters = assignClusters(dots, centers);
-    let newCenters = recontrucrion(clasters);
+    let newCenters =  recontruction(clasters);
     while (JSON.stringify(newCenters) !== JSON.stringify(centers))
     {
         count++;
         centers = newCenters;
         clasters = assignClusters(dots, centers);
-        newCenters = recontrucrion(clasters);
+        newCenters =  recontruction(clasters);
     }
     console.log(count)
     context.beginPath();
     context.fillStyle = "#dbdbdb";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    for(let i = 0; i < centers.length; i++)
-    {
-        context.fillStyle = colors[i];
-        context.fillRect(centers[i][0], centers[i][1], 20, 20);
-    }
 
     for(let i = 0; i < clasters.length; i++)
     {
