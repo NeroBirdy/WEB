@@ -440,5 +440,4 @@ select.addEventListener("change", function() {
   {
     devider = " ";
   }
-
 });
