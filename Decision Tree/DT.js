@@ -113,6 +113,8 @@ function init()
 async function byPass(decisionArray)
 {
   let ul = document.getElementsByTagName("ul")[0];
+  await new Promise(resolve => setTimeout(resolve, 150));
+  ul.children[0].style = "background-color:red";
 
   for (let i of decisionArray)
   {
