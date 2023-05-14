@@ -9,9 +9,26 @@
 </head>
 <body>
     <input type="file" id = "input_file">
-    <div id="tree"></div>
+
+    <button id="myButton">Нажми меня</button>
+    <div id="myList" style="display: none;">
+      <button id = "data1">Tennis</button>
+      <button id = "data2">Species</button>
+      <button id = "data3">Infected</button>
+    </div>
+    
+
+    <div id="tree">
+        <ul id = "root">
+            <li>
+
+            </li>
+        </ul>
+    </div>
     <select name="" id="selection"></select> 
+    <label for="userInput">Введите данные:</label>
     <input type="text" id = "userInput">
+    <button onclick = "byPass()">Обход данных</button>
 </body>
 <script src = "DT.js"></script>
 </html>
