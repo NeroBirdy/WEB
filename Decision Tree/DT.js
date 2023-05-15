@@ -99,6 +99,40 @@ dynamicButtons.forEach(function(dynamicButton) {
 });
 
 
+let btn = document.getElementById("input_file");
+btn.addEventListener("change", function()
+{
+  parseCsv();
+});
+
+
+const select = document.getElementById("selection");
+
+const options = ["Запятая", "Точка с запятой", "Пробел"];
+
+options.forEach((option) => {
+  const optionElement = document.createElement("option");
+  optionElement.text = option;
+  optionElement.value = option;
+  select.appendChild(optionElement);
+});
+
+select.addEventListener("change", function() {
+  const selectedOption = select.options[select.selectedIndex].value;
+  if (selectedOption === "Запятая")
+  {
+    devider = ",";
+  }
+  else if (selectedOption === "Точка с запятой")
+  {
+    devider = ";";
+  }
+  else
+  {
+    devider = " ";
+  }
+});
+
 let container = document.getElementById("tree");
 let devider = ",";
 let target;
@@ -107,13 +141,6 @@ let visited;
 let queue;
 
 let checkForEnd = [];
-
-
-let btn = document.getElementById("input_file");
-btn.addEventListener("change", function()
-{
-  parseCsv();
-});
 
 async function init()
 {
@@ -162,8 +189,6 @@ async function init()
   }
 
   drawTree(root, container.children[0].children[0]);
-  //byPass(["Overcast", "Normal"]);
-  // console.log(root);
 }
 
 let red = [];
@@ -197,7 +222,6 @@ async function byPass()
   }
 
   let li = document.getElementsByTagName("li")[0];
-  // console.log(li);
   await new Promise(resolve => setTimeout(resolve, 150));
   li.children[0].style = "background-color:red";
   for (let i of decisionArray)
@@ -408,36 +432,3 @@ function parseCsv()
   }
 }
 
-
-
-
-
-const select = document.getElementById("selection");
-
-
-const options = ["Запятая", "Точка с запятой", "Пробел"];
-
-
-options.forEach((option) => {
-  const optionElement = document.createElement("option");
-  optionElement.text = option;
-  optionElement.value = option;
-  select.appendChild(optionElement);
-});
-
-
-select.addEventListener("change", function() {
-  const selectedOption = select.options[select.selectedIndex].value;
-  if (selectedOption === "Запятая")
-  {
-    devider = ",";
-  }
-  else if (selectedOption === "Точка с запятой")
-  {
-    devider = ";";
-  }
-  else
-  {
-    devider = " ";
-  }
-});
