@@ -7,14 +7,13 @@
     <title>Плоскость для точек</title>
     <link rel="stylesheet" href="CL.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=tCT9S__Cjk0_NwhH1ZpwEf63LOghRaoBS6K2x9wS8jKK6fNOgBlhc7Yaaw4ZkCgqBJc64GhVNH3UzWN4RpTYkpwsTg7E-Wwymw8AFT14yQqEy7Hu05uIZzDRhZOAaynnytzdxbom6ovrP7nXr3hq1Q" charset="UTF-8"></script>
-</head>
+  </head>
   <body>
     <div class="area">
       <div class="header">
           <div class="back_button_area">
               <div class="back_button_fon">
-                  <a href="../home.html"><div class="back_button"></div></a>
+                  <div class="back_button"></div>
               </div>
               <div class="button_empty"></div>
           </div>
@@ -29,12 +28,12 @@
       <div class="input_area">
         <div class="empty_area"></div>
         <div class="canvas_area">
-          <canvas class="canvas" id="myCanvas" ></canvas>
+          <canvas class="canvas" id="myCanvas" width="600" height="600"></canvas>
         </div>
         <div class="button_area">
           <div class="up_button">
             <div class="kmeans_area">
-              <button class="btn margin_btn" onclick = "KMeans()"> K-Means</button>
+              <button class="btn margin_btn" onclick = "KMeans()">K-Means</button>
               <div class="text_area">
                 <div class="text">
                   <label class="label" for="countcenters">Количество кластеров</label>
@@ -44,7 +43,7 @@
             </div>
             <div class="other_button">
               <button class="btn" onclick = "DBSCAN(dots, 40, 2)">DBSCAN</button>
-              <button class="btn" onclick = "hierarchicalClustering(dots)"> hierarchical</button>
+              <button class="btn" onclick = "hierarchicalClustering(dots)">Hierarchical</button>
             </div>
           </div>
           <div class="clear_button">

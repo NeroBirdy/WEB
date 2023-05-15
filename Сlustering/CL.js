@@ -1,26 +1,6 @@
 let canvas = document.getElementById("myCanvas");
 let context = canvas.getContext("2d");
 
-const bodySize = document.body.getBoundingClientRect();
-if(bodySize.width <= 450){
-  var size = Math.min(bodySize.width, bodySize.height) * 0.7;
-}
-else if(bodySize.width <= 900){
-  var size = Math.min(bodySize.width, bodySize.height) * 0.7;
-}
-else if(bodySize.width <= 1000){
-  var size = Math.min(bodySize.width, bodySize.height) * 0.8;
-}
-else if(bodySize.width <= 1400){
-  var size = Math.min(bodySize.width, bodySize.height) * 0.9;
-}
-else{
-  var size = Math.min(bodySize.width, bodySize.height) * 1;
-}
-canvas.setAttribute('width', size);
-canvas.setAttribute('height', size);
-
-
 let visited = [];
 let clasters = [];
 let centers = [];
@@ -60,6 +40,7 @@ while (visited.includes(ind))
   ind = Math.floor(Math.random() * dots.length);
 }
 centers.push([dots[ind][0], dots[ind][1]]);
+
 }
 
 canvas.addEventListener("click", function(event) {
@@ -151,14 +132,17 @@ function KMeans()
   {
     addCenter();
   }
+    let count = 0;
     clasters = assignClusters(dots, centers);
     let newCenters =  recontruction(clasters);
     while (JSON.stringify(newCenters) !== JSON.stringify(centers))
     {
+        count++;
         centers = newCenters;
         clasters = assignClusters(dots, centers);
         newCenters =  recontruction(clasters);
     }
+    console.log(count)
     context.beginPath();
     context.fillStyle = "#dbdbdb";
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -178,7 +162,7 @@ function KMeans()
 
 function CleareMap()
 {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, 1200, 900);
     context.fillStyle = "#dbdbdb";
     context.fillRect(0, 0, canvas.width, canvas.height);
     dots = [];
@@ -339,4 +323,3 @@ function euclideanDistance(cluster1, cluster2) {
   }
   return dist;
 }
-
