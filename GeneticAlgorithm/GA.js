@@ -144,6 +144,11 @@ function getFirtsPopulation()
 
 async function Genetic()
 {
+    if (vertexes.length < 3)
+    {
+        alert("Нужно поставить хотя бы 3 точки")
+        return;
+    }
     button1.disabled = true;
     button2.disabled = true;
     document.getElementById("create_put").disabled = true;
